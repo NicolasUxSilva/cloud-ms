@@ -1,0 +1,184 @@
+---
+import Icon from './Icon.astro';
+import { SOLUTIONS } from '../data/content';
+---
+
+<section class="section section--tint" id="solucoes" aria-labelledby="sol-title">
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div>
+        <p class="eyebrow"><b>02</b> Soluções</p>
+        <h2 id="sol-title">O modelo de Cloud certo para cada estágio</h2>
+      </div>
+      <p>Nuvem privada, recursos dedicados em data center ou uma combinação com o que a empresa já tem. Na dúvida, o simulador tem a opção de orientação.</p>
+    </div>
+
+    <ul class="sol-grid">
+      {
+        SOLUTIONS.map((s, i) => (
+          <li class:list={['sol-card', i === 0 && 'sol-card--lead on-dark']} data-reveal style={`--reveal-i:${i}`}>
+            <div class="sol-head">
+              <span class="icon-tile">
+                <Icon name={s.icon} />
+              </span>
+              {i === 0 && <span class="sol-tag">Sob medida</span>}
+            </div>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+            <ul class="sol-points">
+              {s.points.map((p) => (
+                <li>
+                  <Icon name="check" size={16} />
+                  {p}
+                </li>
+              ))}
+            </ul>
+            <div class="sol-actions">
+              <a class:list={['btn', i === 0 ? 'btn--primary' : 'btn--outline']} href="#configurar" data-sim-preset={`model:${s.model}`} data-track="cta_click" data-track-location={`solucao-${s.model}`}>
+                Simular com este modelo
+                <Icon name="arrow-right" class="btn-arrow" />
+              </a>
+              {s.href && (
+                <a class="sol-more" href={s.href}>
+                  Saiba mais<span class="sr-only"> sobre {s.title.toLowerCase()}</span>
+                </a>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .section--tint {
+    background: var(--c-paper-2);
+  }
+
+  .sol-grid {
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 1024px) {
+    .sol-grid {
+      grid-template-columns: 1.15fr 1fr 1fr;
+    }
+  }
+
+  .sol-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: clamp(1.5rem, 1.2rem + 0.8vw, 2.1rem);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-lg);
+    background: var(--c-surface);
+  }
+
+  .sol-card--lead {
+    border-color: transparent;
+    background:
+      radial-gradient(90% 70% at 100% 0%, rgb(61 58 134 / 0.6), transparent 60%),
+      radial-gradient(70% 60% at 0% 100%, rgb(249 131 5 / 0.14), transparent 60%),
+      var(--c-indigo-950);
+    color: var(--c-on-dark);
+  }
+
+  .sol-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .sol-card--lead .icon-tile {
+    background: rgb(255 255 255 / 0.08);
+    color: var(--c-orange);
+  }
+
+  .sol-tag {
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--c-line-dark-2);
+    border-radius: 6px;
+    font-family: var(--f-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-on-dark-2);
+  }
+
+  .sol-card h3 {
+    margin-top: 0.4rem;
+    font-size: var(--t-h3);
+  }
+
+  .sol-card > p {
+    color: var(--c-ink-2);
+  }
+
+  .sol-card--lead > p {
+    color: var(--c-on-dark-2);
+  }
+
+  .sol-points {
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--c-line);
+    font-size: 0.93rem;
+  }
+
+  .sol-card--lead .sol-points {
+    border-top-color: var(--c-line-dark);
+  }
+
+  .sol-points li {
+    display: flex;
+    gap: 0.55rem;
+    align-items: flex-start;
+  }
+
+  .sol-points :global(svg) {
+    flex: none;
+    margin-top: 3px;
+    color: var(--c-success);
+  }
+
+  .sol-card--lead .sol-points :global(svg) {
+    color: var(--c-success-on-dark);
+  }
+
+  .sol-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    margin-top: auto;
+    padding-top: 1rem;
+  }
+
+  .sol-actions .btn {
+    white-space: normal;
+  }
+
+  .sol-more {
+    color: var(--c-indigo-600);
+    font-size: 0.93rem;
+    font-weight: 600;
+    text-underline-offset: 3px;
+  }
+
+  .sol-card--lead .sol-more {
+    color: var(--c-on-dark);
+  }
+
+  @media (max-width: 520px) {
+    .sol-actions .btn {
+      width: 100%;
+    }
+  }
+</style>
