@@ -3,27 +3,28 @@ import type { Option, StepDef } from './types';
 import { OTHER, UNSURE } from './types';
 
 export const STEPS: StepDef[] = [
-  { id: 'objetivo', label: 'Objetivo', title: 'O que a sua empresa quer levar para a nuvem?', lead: 'Escolha um ou mais usos e o momento do projeto. Isso orienta as dicas das próximas etapas.' },
-  { id: 'modelo', label: 'Modelo', title: 'Qual modelo de Cloud faz mais sentido?', lead: 'Se ainda não souber, escolha a orientação: a equipe indica o modelo a partir do seu cenário.' },
-  { id: 'processamento', label: 'Processador', title: 'Quanto processamento o ambiente precisa?', lead: 'Opções do configurador de Cloud da MSSERVER, em núcleos e threads.' },
+  { id: 'objetivo', label: 'Demanda', title: 'O que o cliente precisa levar para a nuvem?', lead: 'Marque as cargas de trabalho e o momento do projeto. Isso orienta as dicas das próximas etapas.' },
+  { id: 'modelo', label: 'Modelo', title: 'Qual modelo de Cloud atende esse cliente?', lead: 'Se ainda não estiver claro, peça orientação: a equipe indica o modelo a partir do cenário.' },
+  { id: 'processamento', label: 'Processador', title: 'Quanto processamento o ambiente precisa?', lead: 'Opções do configurador de Cloud da MSSERVER, em cores e threads.' },
   { id: 'memoria', label: 'Memória', title: 'Quanta memória RAM?', lead: 'De 8 a 64 GB, ou informe outra quantidade.' },
   { id: 'armazenamento', label: 'Disco', title: 'Quanto espaço de armazenamento?', lead: 'De 300 GB a 2 TB, ou informe outra capacidade. A tecnologia dos discos é definida na análise.' },
   { id: 'rede', label: 'Rede', title: 'Rede, proteção e serviços', lead: 'Defina a quantidade de IPs. Os demais itens são opcionais e entram na avaliação; alguns são serviços adicionais.' },
-  { id: 'resumo', label: 'Resumo', title: 'Revise e envie para a equipe da MSSERVER', lead: 'Esta é uma configuração preliminar para avaliação. Valores, disponibilidade e arquitetura final são definidos pela equipe comercial.' },
+  { id: 'resumo', label: 'Briefing', title: 'Revise o briefing e envie para a equipe', lead: 'Este é um levantamento preliminar. Valores, disponibilidade e arquitetura final são definidos pela equipe da MSSERVER depois da análise.' },
 ];
 
 export const WORKLOADS: Option[] = [
-  { value: 'erp', title: 'Sistemas de gestão e ERP', description: 'ERP, sistemas fiscais, CRM e aplicações internas da empresa.', icon: 'layout-dashboard' },
+  { value: 'erp', title: 'Sistemas de gestão e ERP', description: 'ERP, fiscal, CRM e aplicações internas, muitas vezes com o banco junto.', icon: 'layout-dashboard' },
   { value: 'database', title: 'Banco de dados', description: 'Bases que pedem leitura e gravação rápidas.', icon: 'database' },
   { value: 'web', title: 'Aplicações e sites', description: 'Sistemas web, portais e APIs.', icon: 'globe' },
   { value: 'files', title: 'Arquivos e compartilhamento', description: 'Arquivos da equipe acessíveis de qualquer lugar.', icon: 'folder-archive' },
   { value: 'email', title: 'Servidor de e-mail', description: 'Correio corporativo com grande fluxo de mensagens.', icon: 'mail' },
-  { value: OTHER, title: 'Outro cenário', description: 'Descreva rapidamente a sua necessidade.', icon: 'pen-line' },
-  { value: UNSURE, title: 'Ainda não sei', description: 'A equipe ajuda a definir a partir da sua operação.', icon: 'circle-help' },
+  { value: OTHER, title: 'Outro cenário', description: 'Descreva a demanda em poucas palavras.', icon: 'pen-line' },
+  { value: UNSURE, title: 'Ainda não sei', description: 'O levantamento está no começo. A equipe ajuda a definir.', icon: 'circle-help' },
 ];
 
 export const SCENARIOS: Option[] = [
-  { value: 'migrate', title: 'Migrar o que já existe', description: 'Levar sistemas que hoje rodam na empresa para a nuvem.', icon: 'cloud-upload' },
+  { value: 'migrate', title: 'Migrar um servidor local', description: 'Sistemas que hoje rodam em servidor no cliente vão para a nuvem.', icon: 'cloud-upload' },
+  { value: 'switch', title: 'Trocar de provedor', description: 'O ambiente está em outra nuvem ou hospedagem e o cliente quer mudar.', icon: 'arrow-right-left' },
   { value: 'new', title: 'Novo projeto', description: 'Um ambiente que ainda não existe.', icon: 'sparkles' },
   { value: 'expand', title: 'Ampliar um ambiente', description: 'Mais recursos para um ambiente que já está na nuvem.', icon: 'trending-up' },
 ];
@@ -45,22 +46,22 @@ export const MODELS: Option[] = [
   {
     value: 'hybrid',
     title: 'Híbrida ou multicloud',
-    description: 'Combinar a nuvem com o que a empresa já tem ou com outros provedores.',
+    description: 'Combinar a nuvem com o que o cliente já tem ou com outros provedores.',
     icon: 'network',
   },
-  { value: UNSURE, title: 'Quero orientação', description: 'Os especialistas indicam o modelo para o seu estágio de adoção.', icon: 'compass' },
+  { value: UNSURE, title: 'Quero orientação', description: 'Os especialistas indicam o modelo para o estágio do cliente.', icon: 'compass' },
 ];
 
 // "Especifique itens como ... criticidade do ambiente" (página de Nuvem Privada).
 export const CRITICALITY: Option[] = [
-  { value: 'high', title: 'Crítico', description: 'A operação não pode parar.' },
-  { value: 'standard', title: 'Importante', description: 'Aceita janelas de manutenção.' },
+  { value: 'high', title: 'Crítico', description: 'Se parar, a operação do cliente para.' },
+  { value: 'standard', title: 'Importante', description: 'Aceita janelas de manutenção combinadas.' },
   { value: UNSURE, title: 'Não sei' },
 ];
 
 export const processorOptions = (): Option[] => [
   ...CLOUD_CPUS.map((c) => ({ value: c.id, title: `${c.cores} cores`, meta: `${c.threads} threads`, icon: 'cpu' })),
-  { value: UNSURE, title: 'Quero recomendação', description: 'A equipe dimensiona a partir do seu uso.', icon: 'circle-help' },
+  { value: UNSURE, title: 'Quero recomendação', description: 'A equipe dimensiona a partir do uso do cliente.', icon: 'circle-help' },
 ];
 
 export const memoryOptions = (): Option[] => [
@@ -92,8 +93,15 @@ export const SERVICES: (Option & { additional?: boolean })[] = [
   { value: 'p2p', title: 'Link ponto a ponto', description: 'Rede privada direta entre a nuvem e o escritório.', icon: 'cable' },
   { value: 'firewall', title: 'Firewall com regras restritivas', description: 'Controle de acesso a nível de rede.', icon: 'brick-wall' },
   { value: 'vlan', title: 'VLAN privada', description: 'Rede interna isolada para o tráfego entre servidores.', icon: 'network' },
-  { value: 'migration', title: 'Migração e treinamento', description: 'Programa de migração com instruções de uso para a equipe.', icon: 'graduation-cap' },
+  { value: 'migration', title: 'Programa de migração', description: 'Instruções de uso para a equipe do cliente, das aplicações às boas práticas.', icon: 'graduation-cap' },
   { value: 'monitoring', title: 'Monitoramento personalizado', description: 'Acompanhamento do ambiente para decisões de negócio e infraestrutura.', icon: 'activity' },
+];
+
+// Opcional, na etapa de envio: ajuda a equipe a entender como o profissional participa.
+export const ROLES: Option[] = [
+  { value: 'support', title: 'Presto suporte de TI ao cliente', description: 'Atendo a empresa no dia a dia, como técnico ou prestador.', icon: 'wrench' },
+  { value: 'consultant', title: 'Sou consultor ou integrador', description: 'Estou desenhando ou conduzindo o projeto.', icon: 'workflow' },
+  { value: 'internal', title: 'Sou da TI da empresa', description: 'Faço parte da equipe interna do cliente.', icon: 'building-2' },
 ];
 
 const titleOf = (list: Option[], v: string | null) => list.find((o) => o.value === v)?.title ?? '';
@@ -104,3 +112,4 @@ export const modelTitle = (v: string | null) => titleOf(MODELS, v);
 export const criticalityTitle = (v: string | null) => titleOf(CRITICALITY, v);
 export const storageProfileTitle = (v: string | null) => titleOf(STORAGE_PROFILES, v);
 export const serviceTitle = (v: string) => titleOf(SERVICES, v) || v;
+export const roleTitle = (v: string | null) => titleOf(ROLES, v);

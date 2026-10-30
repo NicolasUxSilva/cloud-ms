@@ -1,56 +1,59 @@
 ---
 import Icon from './Icon.astro';
-import { USE_CASES } from '../data/content';
+import { SITUATIONS, situationPreset } from '../data/content';
 ---
 
-<section class="section" id="aplicacoes" aria-labelledby="apps-title">
+<section class="section" id="situacoes" aria-labelledby="sit-title">
   <div class="container">
     <div class="section-head section-head--split">
       <div>
-        <p class="eyebrow"><b>04</b> Aplicações</p>
-        <h2 id="apps-title">O que a sua empresa pode levar para a nuvem</h2>
+        <p class="eyebrow"><b>01</b> Situações</p>
+        <h2 id="sit-title">Se você atende empresas, já viu alguma dessas</h2>
       </div>
       <p>
-        Cenários em que a Cloud da MSSERVER costuma ser usada. Escolha um para começar a simulação com o uso já marcado.
+        Demanda de Cloud costuma aparecer no meio do suporte, numa visita ou numa reclamação do cliente. Cada uma destas pode virar um projeto. Escolha uma para abrir o simulador com o contexto já marcado.
       </p>
     </div>
 
     <ul class="apps-grid">
       {
-        USE_CASES.map((app, i) => (
+        SITUATIONS.map((sit, i) => (
           <li class="app-card" data-reveal style={`--reveal-i:${i % 3}`}>
             <div class="app-head">
               <div class="icon-tile">
-                <Icon name={app.icon} />
+                <Icon name={sit.icon} />
               </div>
-              <h3>{app.title}</h3>
+              <h3>{sit.title}</h3>
             </div>
-            <p>{app.text}</p>
+            <p>{sit.text}</p>
             <div class="app-priorities">
-              <span class="app-priorities-label">O que mais pesa</span>
+              <span class="app-priorities-label">Costuma entrar no projeto</span>
               <ul>
-                {app.priorities.map((p) => <li class="chip">{p}</li>)}
+                {sit.fits.map((p) => <li class="chip">{p}</li>)}
               </ul>
             </div>
-            <a class="app-link" href="#configurar" data-sim-preset={`workload:${app.workload}`} data-track="cta_click" data-track-location={`aplicacao-${app.workload}`}>
-              Simular este cenário
+            <a class="app-link" href="#configurar" data-sim-preset={situationPreset(sit)} data-track="cta_click" data-track-location={`situacao-${sit.id}`}>
+              Organizar este projeto
               <Icon name="arrow-right" size={18} class="btn-arrow" />
             </a>
           </li>
         ))
       }
-      <li class="app-card app-card--help on-dark" data-reveal style="--reveal-i:2">
-        <div class="icon-tile">
-          <Icon name="circle-help" />
-        </div>
-        <h3>Não sabe por onde começar?</h3>
-        <p>Comece o simulador com a opção "Ainda não sei". As etapas aceitam respostas em aberto e a equipe completa o dimensionamento.</p>
-        <a class="btn btn--primary" href="#configurar" data-sim-preset="workload:unsure" data-track="cta_click" data-track-location="aplicacao-nao-sei">
-          Começar sem saber tudo
-          <Icon name="arrow-right" class="btn-arrow" />
-        </a>
-      </li>
     </ul>
+
+    <div class="app-card app-card--help on-dark" data-reveal>
+      <div class="icon-tile">
+        <Icon name="circle-help" />
+      </div>
+      <div class="help-copy">
+        <h3>Ainda no começo do levantamento?</h3>
+        <p>Não precisa ter todos os números. O simulador aceita "não sei" em cada etapa, e a equipe da MSSERVER completa o dimensionamento com você.</p>
+      </div>
+      <a class="btn btn--primary" href="#configurar" data-sim-preset="workload:unsure" data-track="cta_click" data-track-location="situacao-nao-sei">
+        Começar sem todos os dados
+        <Icon name="arrow-right" class="btn-arrow" />
+      </a>
+    </div>
   </div>
 </section>
 
@@ -101,7 +104,7 @@ import { USE_CASES } from '../data/content';
   }
 
   .app-card--help h3 {
-    margin-top: 0.6rem;
+    margin-top: 0.2rem;
   }
 
   @media (max-width: 679px) {
@@ -188,10 +191,36 @@ import { USE_CASES } from '../data/content';
     color: var(--c-orange);
   }
 
+  .app-card--help {
+    margin-top: 1rem;
+  }
+
   .app-card--help .btn {
-    margin-top: auto;
     align-self: flex-start;
     white-space: normal;
     text-align: left;
+  }
+
+  .help-copy {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .help-copy p {
+    color: var(--c-on-dark-2);
+    max-width: 62ch;
+  }
+
+  @media (min-width: 900px) {
+    .app-card--help {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      column-gap: 1.5rem;
+    }
+
+    .app-card--help .btn {
+      align-self: center;
+    }
   }
 </style>

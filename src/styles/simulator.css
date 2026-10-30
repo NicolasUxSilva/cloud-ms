@@ -1489,3 +1489,31 @@ button.sum-value:hover {
     width: 100%;
   }
 }
+
+/* Contexto opcional antes do envio (atuação do profissional e observações) */
+.sim-context {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.1rem 1.25rem 1.25rem;
+  border: 1px solid var(--c-line);
+  border-radius: 16px;
+  background: var(--c-surface);
+}
+
+.sim-context-title {
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-ink-3);
+}
+
+@media (min-width: 640px) {
+  .sim-group--roles .sim-options {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.sim-notes .sim-hint {
+  margin: -0.1rem 0 0.6rem;
+}

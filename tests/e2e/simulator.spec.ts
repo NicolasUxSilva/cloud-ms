@@ -23,10 +23,15 @@ test('fluxo completo gera o resumo e a mensagem com as escolhas reais', async ({
   await expect(sim(page).locator('[data-price]')).toContainText('Sob avaliação');
   expect(await sim(page).innerText()).not.toMatch(/R\$/);
 
-  const send = sim(page).getByRole('link', { name: 'Enviar configuração pelo WhatsApp' });
+  // Contexto opcional do profissional.
+  await choose(page, 'Presto suporte de TI ao cliente');
+  await sim(page).getByLabel('Observações para a equipe (opcional)').fill('25 usuários, ERP e banco no mesmo servidor');
+  await expect(sim(page).locator('[data-summary-list]')).toContainText('Presto suporte de TI ao cliente');
+
+  const send = sim(page).getByRole('link', { name: 'Enviar briefing pelo WhatsApp' });
   const text = await waText(page, '.sim-send a[data-wa-dynamic]');
-  expect(text).toMatch(/^Olá! Montei uma configuração preliminar no simulador de Cloud da MSSERVER/);
-  for (const line of ['• Uso: Sistemas de gestão e ERP, Banco de dados', '• Momento: Migrar o que já existe', '• Modelo: Nuvem privada', '• Criticidade: Crítico', '• Processamento: 8 cores / 16 threads', '• Memória: 32 GB', '• Armazenamento: 900 GB', '• IPs: 2 IPs', '• Itens para avaliar: Backup diário']) {
+  expect(text).toMatch(/^Olá! Sou profissional de TI e vim pela página de Cloud da MSSERVER\. Organizei no simulador a demanda de um cliente e quero avaliar o projeto em parceria/);
+  for (const line of ['• Minha atuação: Presto suporte de TI ao cliente', '• Observações: 25 usuários, ERP e banco no mesmo servidor', '• Demanda: Sistemas de gestão e ERP, Banco de dados', '• Momento: Migrar um servidor local', '• Modelo: Nuvem privada', '• Criticidade: Crítico', '• Processamento: 8 cores / 16 threads', '• Memória: 32 GB', '• Armazenamento: 900 GB', '• IPs: 2 IPs', '• Itens para avaliar: Backup diário']) {
     expect(text).toContain(line);
   }
   expect(await send.getAttribute('href')).toMatch(/^https:\/\/wa\.me\/5511985991837\?text=/);
@@ -47,17 +52,17 @@ test('fluxo completo gera o resumo e a mensagem com as escolhas reais', async ({
 test('validações bloqueiam o avanço e mostram o que falta', async ({ page }) => {
   await openSimulator(page);
   await next(page);
-  await expect(sim(page).locator('[data-error]')).toHaveText('Escolha pelo menos um uso ou marque "Ainda não sei".');
+  await expect(sim(page).locator('[data-error]')).toHaveText('Escolha pelo menos uma carga de trabalho ou marque "Ainda não sei".');
   await choose(page, 'Outro cenário');
   await next(page);
-  await expect(sim(page).locator('[data-error]')).toHaveText('Descreva o outro cenário em poucas palavras.');
-  await expect(sim(page).getByLabel('Descreva o outro cenário')).toBeFocused();
-  await sim(page).getByLabel('Descreva o outro cenário').fill('Área de trabalho remota');
+  await expect(sim(page).locator('[data-error]')).toHaveText('Descreva a outra demanda em poucas palavras.');
+  await expect(sim(page).getByLabel('Descreva a outra demanda')).toBeFocused();
+  await sim(page).getByLabel('Descreva a outra demanda').fill('Área de trabalho remota');
   await next(page);
   await expect(sim(page).locator('[data-error]')).toContainText('migração');
   await choose(page, 'Novo projeto');
   await expect(sim(page).locator('[data-error]')).toBeHidden();
-  await next(page, 'Qual modelo de Cloud faz mais sentido?');
+  await next(page, 'Qual modelo de Cloud atende esse cliente?');
   await choose(page, 'Quero orientação');
   await next(page);
   await expect(sim(page).locator('[data-error]')).toContainText('criticidade');
@@ -91,7 +96,7 @@ test('"Outro" em memória e armazenamento: validação e conversão de unidade',
   await choose(page, 'Velocidade de leitura e gravação');
   await next(page, 'Rede, proteção e serviços');
   await choose(page, /^1$/);
-  await next(page, 'Revise e envie para a equipe da MSSERVER');
+  await next(page, 'Revise o briefing e envie para a equipe');
   const review = sim(page).locator('.sim-review-list');
   await expect(review).toContainText('256 GB (outro)');
   await expect(review).toContainText('4 TB (outro)');
@@ -112,7 +117,7 @@ test('voltar e alterar a partir do resumo mantém as demais escolhas', async ({ 
   await expect(sim(page).locator('.sim-step-title')).toHaveText('Quanta memória RAM?');
   await choose(page, '64 GB');
   for (let i = 0; i < 3; i++) await next(page);
-  await expect(sim(page).locator('.sim-step-title')).toHaveText('Revise e envie para a equipe da MSSERVER');
+  await expect(sim(page).locator('.sim-step-title')).toHaveText('Revise o briefing e envie para a equipe');
   await expect(sim(page).locator('.sim-review-list')).toContainText('64 GB');
   await expect(sim(page).locator('.sim-review-list')).toContainText('900 GB');
 });
@@ -122,10 +127,10 @@ test('a simulação sobrevive a recarregar a página e chega ao CTA final', asyn
   await completeCloud(page);
   await page.reload();
   await expect(sim(page)).toHaveClass(/is-ready/);
-  await expect(sim(page).locator('.sim-step-title')).toHaveText('Revise e envie para a equipe da MSSERVER');
-  await expect(sim(page).locator('[data-notices]')).toContainText('Retomamos a simulação');
+  await expect(sim(page).locator('.sim-step-title')).toHaveText('Revise o briefing e envie para a equipe');
+  await expect(sim(page).locator('[data-notices]')).toContainText('Retomamos o briefing');
   const final = page.locator('.final [data-wa-summary]');
-  await expect(final).toContainText('Enviar minha configuração');
+  await expect(final).toContainText('Enviar o briefing');
   await expect(page.locator('[data-final-saved]')).toBeVisible();
   const text = decodeURIComponent(new URL((await final.getAttribute('href'))!).searchParams.get('text')!);
   expect(text).toContain('• Processamento: 8 cores / 16 threads');
@@ -133,28 +138,43 @@ test('a simulação sobrevive a recarregar a página e chega ao CTA final', asyn
 
   // Recomeçar limpa tudo, inclusive o CTA final.
   page.once('dialog', (d) => d.accept());
-  await sim(page).getByRole('button', { name: 'Fazer outra simulação' }).click();
-  await expect(sim(page).locator('.sim-step-title')).toHaveText('O que a sua empresa quer levar para a nuvem?');
+  await sim(page).getByRole('button', { name: 'Montar outro briefing' }).click();
+  await expect(sim(page).locator('.sim-step-title')).toHaveText('O que o cliente precisa levar para a nuvem?');
   await expect(sim(page).locator('[data-summary-count]')).toHaveText('0 de 6');
-  await expect(final).toContainText('Falar com um especialista');
+  await expect(final).toContainText('Conversar sobre parceria');
   await expect(page.locator('[data-final-saved]')).toBeHidden();
 });
 
 test('atalhos da página pré-selecionam uso e modelo', async ({ page }) => {
   await page.goto('/');
-  await page.locator('#aplicacoes a[data-sim-preset="workload:database"]').click();
+  await page.locator('#situacoes a[data-sim-preset="workload:database"]').click();
   await expect(sim(page).locator('.opt-input[value="database"]')).toBeChecked();
   await choose(page, 'Novo projeto');
-  await page.locator('#solucoes a[data-sim-preset="model:hybrid"]').click();
-  await expect(sim(page).locator('.sim-step-title')).toHaveText('Qual modelo de Cloud faz mais sentido?');
+  await page.locator('#projetos a[data-sim-preset="model:hybrid"]').click();
+  await expect(sim(page).locator('.sim-step-title')).toHaveText('Qual modelo de Cloud atende esse cliente?');
   await expect(sim(page).locator('.opt-input[value="hybrid"]')).toBeChecked();
   await expect(sim(page).locator('[data-notices]')).toContainText('"Híbrida ou multicloud" já está selecionado');
+});
+
+test('situações marcam vários itens de uma vez e avisam o que foi marcado', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('#situacoes a[data-track-location="situacao-arquivos-backup"]').click();
+  await expect(sim(page).locator('.opt-input[value="files"]')).toBeChecked();
+  await expect(sim(page).locator('[data-notices]')).toContainText('Marcamos no briefing: Arquivos e compartilhamento');
+  await page.locator('#situacoes a[data-track-location="situacao-trocar-provedor"]').click();
+  await expect(sim(page).locator('.opt-input[value="switch"]')).toBeChecked();
+  await expect(sim(page).locator('.opt-input[value="files"]')).toBeChecked();
+  const text = decodeURIComponent(new URL((await page.locator('.final [data-wa-summary]').getAttribute('href'))!).searchParams.get('text')!);
+  expect(text).toContain('• Demanda: Arquivos e compartilhamento');
+  expect(text).toContain('• Momento: Trocar de provedor');
+  expect(text).toContain('• Itens para avaliar: Backup diário');
+  expect(text).toMatch(/^Olá! Sou profissional de TI .*Comecei a organizar/);
 });
 
 test('dicas acompanham os usos escolhidos', async ({ page }) => {
   await openSimulator(page);
   await choose(page, 'Banco de dados');
-  await choose(page, 'Migrar o que já existe');
+  await choose(page, 'Migrar um servidor local');
   await next(page);
   await choose(page, 'Híbrida ou multicloud');
   await choose(page, 'Crítico');
@@ -179,7 +199,7 @@ test('no celular, a barra fixa e o resumo em folha funcionam', async ({ page, vi
   const sheet = sim(page).locator('[data-sheet]');
   await expect(sheet).toBeVisible();
   await expect(sheet).toContainText('Aplicações e sites');
-  await sheet.getByRole('button', { name: 'Fechar resumo' }).click();
+  await sheet.getByRole('button', { name: 'Fechar briefing' }).click();
   await expect(sheet).toBeHidden();
   expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBe(0);
 });

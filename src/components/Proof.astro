@@ -1,16 +1,16 @@
 ---
 import { Image } from 'astro:assets';
 import team from '../assets/photos/equipe-msserver.jpg';
-import { STATS } from '../data/content';
+import { STATS, TESTIMONIALS } from '../data/content';
 ---
 
-<section class="section section--dark on-dark" id="clientes" aria-labelledby="proof-title">
+<section class="section section--dark on-dark" id="equipe" aria-labelledby="proof-title">
   <div class="container">
     <div class="proof-top">
       <div class="proof-copy">
         <p class="eyebrow"><b>07</b> Quem atende</p>
-        <h2 id="proof-title">Especialistas em português, 24 horas por dia</h2>
-        <p class="proof-lead">Da análise à migração, a sua Cloud é acompanhada por uma equipe nacional, com proximidade e autonomia. O atendimento técnico funciona 24/7 por telefone e portal, e o comercial das 8h às 18h.</p>
+        <h2 id="proof-title">Especialistas de verdade do outro lado</h2>
+        <p class="proof-lead">Servidores sustentam entregas críticas. Por isso o atendimento da MSSERVER trata questões técnicas de forma humana e pró-ativa, do dimensionamento ao pós-venda.</p>
         <dl class="proof-stats">
           {
             STATS.map((s) => (
@@ -28,6 +28,21 @@ import { STATS } from '../data/content';
       </figure>
     </div>
 
+    <ul class="quotes" aria-label="Depoimentos de clientes">
+      {
+        TESTIMONIALS.map((t, i) => (
+          <li class="quote" data-reveal style={`--reveal-i:${i % 2}`}>
+            <blockquote>
+              <p>“{t.quote}”</p>
+            </blockquote>
+            <p class="quote-who">
+              <strong>{t.name}</strong>
+              <span>{t.company}</span>
+            </p>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </section>
 
@@ -116,4 +131,51 @@ import { STATS } from '../data/content';
     text-transform: uppercase;
   }
 
+  .quotes {
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+    margin-top: clamp(3rem, 2rem + 3vw, 4.5rem);
+  }
+
+  @media (min-width: 800px) {
+    .quotes {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .quote {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+    border: 1px solid var(--c-line-dark);
+    border-radius: var(--r-lg);
+    background: rgb(255 255 255 / 0.03);
+  }
+
+  .quote blockquote {
+    margin: 0;
+  }
+
+  .quote blockquote p {
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: var(--c-on-dark);
+  }
+
+  .quote-who {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.6rem;
+    align-items: baseline;
+    padding-top: 1rem;
+    border-top: 1px solid var(--c-line-dark);
+    font-size: 0.9rem;
+  }
+
+  .quote-who span {
+    color: var(--c-on-dark-3);
+  }
 </style>

@@ -32,8 +32,8 @@ p{margin-top:24px;font-size:22px;color:#4e4955;line-height:1.45}
 .chips{display:flex;gap:10px;flex-wrap:wrap}
 .chips span{font-family:Mono;font-size:15px;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 12px;color:#f4f3f8}
 </style></head><body>
-<div class="l"><img class="logo" src="${logo}" alt=""><h1>Cloud sob medida, <span class="hl">sem altos investimentos</span> iniciais.</h1><p>Nuvem privada · migração assistida · suporte 24/7 em português</p></div>
-<div class="r"><span class="k">Simulador de Cloud</span>${svg}<div class="chips"><span>Processamento</span><span>Memória</span><span>Armazenamento</span><span>IPs</span></div></div>
+<div class="l"><img class="logo" src="${logo}" alt=""><h1>Você cuida do cliente. <span class="hl">A gente entra com a nuvem.</span></h1><p>Cloud em parceria para profissionais de TI que atendem empresas</p></div>
+<div class="r"><span class="k">Briefing de projeto</span>${svg}<div class="chips"><span>Demanda</span><span>Modelo</span><span>Recursos</span><span>Rede</span></div></div>
 </body></html>`;
 
 const browser = await chromium.launch();
