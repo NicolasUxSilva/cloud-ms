@@ -1,5 +1,10 @@
 # Origem, auditoria e decisões
 
+> Em 30/10/2026 a landing foi reformulada para profissionais de TI parceiros. A
+> auditoria dessa etapa, a nova arquitetura e a classificação das informações (confirmadas,
+> antigas, a validar e hipóteses) estão em [REFORMULACAO-PARCEIROS.md](REFORMULACAO-PARCEIROS.md).
+> Este documento registra a origem do projeto e continua válido para os dados técnicos.
+
 ## Projetos da MSSERVER
 
 | Projeto | Repositório | Versão | Papel |

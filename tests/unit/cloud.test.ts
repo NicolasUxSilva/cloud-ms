@@ -1,9 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { CLOUD_CPUS, CLOUD_IPS, CLOUD_MEMORY_GB, CLOUD_STORAGE_GB } from '../../src/data/cloud';
-import { memoryOptions, processorOptions, SERVICES, STEPS, storageOptions } from '../../src/cloud-simulator/options';
+import { memoryOptions, processorOptions, SCENARIOS, SERVICES, STEPS, storageOptions } from '../../src/cloud-simulator/options';
 import { applyChange, customMemoryGb, customStorageGb, firstIncompleteStep, isComplete, parseAmount, validateStep } from '../../src/cloud-simulator/rules';
-import { configLines, GENERAL_MESSAGE, plainSummary, summarize, whatsappMessage } from '../../src/cloud-simulator/summary';
-import { emptyState, type SimState } from '../../src/cloud-simulator/types';
+import { configLines, GENERAL_MESSAGE, plainSummary, QUESTION_MESSAGE, summarize, whatsappMessage } from '../../src/cloud-simulator/summary';
+import { emptyState, NOTES_MAX, type SimState } from '../../src/cloud-simulator/types';
+import * as content from '../../src/data/content';
 import { CONTACT, SITE, whatsappUrl } from '../../src/config/site';
 
 const full = (over: Partial<SimState> = {}): SimState => ({
@@ -56,7 +57,7 @@ describe('validação das etapas', () => {
     expect(firstIncompleteStep(full())).toBe(STEPS.length - 1);
   });
 
-  it('exige descrever "Outro cenário" e informar o momento do projeto', () => {
+  it('exige descrever a outra demanda e informar o momento do projeto', () => {
     expect(validateStep('objetivo', full({ workloads: ['other'], otherWorkload: 'a' }))).toMatch(/Descreva/);
     expect(validateStep('objetivo', full({ workloads: ['other'], otherWorkload: 'VDI' }))).toBeNull();
     expect(validateStep('objetivo', full({ scenario: null }))).toMatch(/migração/);
@@ -112,7 +113,7 @@ describe('dependências entre escolhas', () => {
 describe('resumo e mensagem para o comercial', () => {
   it('resumo com 6 linhas obrigatórias e estados corretos', () => {
     const rows = summarize(full());
-    expect(rows.map((r) => r.label)).toEqual(['Uso', 'Modelo', 'Processamento', 'Memória', 'Armazenamento', 'IPs']);
+    expect(rows.map((r) => r.label)).toEqual(['Demanda', 'Modelo', 'Processamento', 'Memória', 'Armazenamento', 'IPs']);
     expect(rows.every((r) => r.status === 'set')).toBe(true);
     expect(rows[2]).toMatchObject({ value: '8 cores', detail: '16 threads' });
     const tbd = summarize(full({ processor: 'unsure', memory: 'unsure' }));
@@ -122,9 +123,10 @@ describe('resumo e mensagem para o comercial', () => {
 
   it('mensagem completa leva exatamente as escolhas feitas', () => {
     const msg = whatsappMessage(full({ memory: 'other', memoryOther: '128', storage: 'other', storageOther: '4', storageOtherUnit: 'TB' }), true);
-    expect(msg).toMatch(/^Olá! Montei uma configuração preliminar no simulador de Cloud da MSSERVER/);
-    expect(msg).toContain('• Uso: Sistemas de gestão e ERP, Banco de dados');
-    expect(msg).toContain('• Momento: Migrar o que já existe');
+    expect(msg).toMatch(/^Olá! Sou profissional de TI e vim pela página de Cloud da MSSERVER\. Organizei no simulador a demanda de um cliente e quero avaliar o projeto em parceria/);
+    expect(msg).toContain('Briefing preliminar:');
+    expect(msg).toContain('• Demanda: Sistemas de gestão e ERP, Banco de dados');
+    expect(msg).toContain('• Momento: Migrar um servidor local');
     expect(msg).toContain('• Modelo: Nuvem privada');
     expect(msg).toContain('• Criticidade: Crítico');
     expect(msg).toContain('• Processamento: 8 cores / 16 threads');
@@ -133,13 +135,29 @@ describe('resumo e mensagem para o comercial', () => {
     expect(msg).toContain('• IPs: 2 IPs');
     expect(msg).toContain('• Itens para avaliar: Backup diário, VPN com o escritório');
     expect(msg).toContain('dependem da análise da equipe');
+    expect(msg).not.toContain('Minha atuação');
+    expect(msg).not.toContain('Observações');
+  });
+
+  it('atuação e observações entram na mensagem, em uma linha e dentro do limite', () => {
+    const msg = whatsappMessage(full({ role: 'consultant', notes: '  25 usuários,\n\n ERP e banco juntos  ' }), true);
+    expect(msg).toContain('• Minha atuação: Sou consultor ou integrador');
+    expect(msg).toContain('• Observações: 25 usuários, ERP e banco juntos');
+    const long = configLines(full({ notes: 'x'.repeat(NOTES_MAX + 50) })).find(([k]) => k === 'Observações');
+    expect(long?.[1]).toHaveLength(NOTES_MAX);
+    expect(configLines(full({ notes: '   ' })).map(([k]) => k)).not.toContain('Observações');
+  });
+
+  it('troca de provedor é um momento de projeto válido', () => {
+    expect(SCENARIOS.map((o) => o.value)).toEqual(['migrate', 'switch', 'new', 'expand']);
+    expect(whatsappMessage(full({ scenario: 'switch' }), true)).toContain('• Momento: Trocar de provedor');
   });
 
   it('mensagem parcial e geral', () => {
     expect(whatsappMessage(emptyState(), false)).toBe(GENERAL_MESSAGE);
     const partial = whatsappMessage({ ...emptyState(), workloads: ['web'] }, false);
-    expect(partial).toMatch(/^Olá! Comecei uma configuração/);
-    expect(partial).toContain('• Uso: Aplicações e sites');
+    expect(partial).toMatch(/^Olá! Sou profissional de TI e vim pela página de Cloud da MSSERVER\. Comecei a organizar/);
+    expect(partial).toContain('• Demanda: Aplicações e sites');
     expect(partial).not.toContain('Processamento');
   });
 
@@ -150,8 +168,39 @@ describe('resumo e mensagem para o comercial', () => {
     expect(plainSummary(full())).toContain('Sem valores');
   });
 
+  it('mensagens gerais identificam a origem e o interesse em parceria', () => {
+    for (const m of [GENERAL_MESSAGE, QUESTION_MESSAGE]) {
+      expect(m).toMatch(/página de Cloud da MSSERVER/);
+      expect(m).toMatch(/parceria/);
+    }
+  });
+
   it('metadados próprios de Cloud, sem canonical de outras landings', () => {
     expect(SITE.title).toMatch(/Cloud/);
     expect(SITE.canonical).not.toMatch(/servidores-dedicados|servidores-fisicos/);
+  });
+});
+
+describe('conteúdo da página para profissionais de TI', () => {
+  it('não promete percentuais, comissões ou exclusividade', () => {
+    const text = JSON.stringify(content);
+    // O único percentual é o uptime informado pela MSSERVER.
+    expect(new Set(text.match(/\d+(,\d+)?\s?%/g))).toEqual(new Set(['99,9%']));
+    expect(text).not.toMatch(/comissão de|ganhe|garantimos|exclusividade (garantida|de território)/i);
+    expect(content.FAQ[0].a).toMatch(/não define comissões, percentuais nem exclusividade/);
+  });
+
+  it('atalhos das situações geram presets válidos para o simulador', () => {
+    const presets = content.SITUATIONS.map(content.situationPreset);
+    expect(presets).toContain('workload:files service:backup');
+    expect(presets).toContain('scenario:switch');
+    for (const p of presets) {
+      for (const token of p.split(' ')) {
+        const [kind, value] = token.split(':');
+        expect(['workload', 'scenario', 'service']).toContain(kind);
+        if (kind === 'service') expect(SERVICES.map((o) => o.value)).toContain(value);
+        if (kind === 'scenario') expect(SCENARIOS.map((o) => o.value)).toContain(value);
+      }
+    }
   });
 });

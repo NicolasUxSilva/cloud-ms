@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Landing de Cloud da MSSERVER com simulador de configuração preliminar",
+  "description": "Landing de Cloud da MSSERVER para profissionais de TI parceiros, com simulador de briefing preliminar",
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
