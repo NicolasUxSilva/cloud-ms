@@ -10,9 +10,9 @@ export const SITE = {
    * concorrer com /solucoes-cloud-msserver/ nem com outras landings.
    */
   canonical: (import.meta.env.PUBLIC_CANONICAL_URL as string | undefined) ?? '',
-  title: 'Cloud em Parceria para Profissionais de TI | MSSERVER',
+  title: 'Infraestrutura Cloud para a TI da sua Empresa | MSSERVER',
   description:
-    'Atende empresas e surgiu uma demanda de Cloud? Desenvolva o projeto com a MSSERVER: nuvem privada sob medida, migração e suporte. Monte o briefing no simulador.',
+    'Servidor no limite, ERP lento ou ambiente que precisa crescer? Nuvem privada sob medida, migração, monitoramento e suporte da MSSERVER. Avalie seu ambiente.',
   locale: 'pt_BR',
 } as const;
 

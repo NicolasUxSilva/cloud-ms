@@ -6,10 +6,10 @@ import { CONTACT, LINKS, whatsappUrl } from '../config/site';
 import { GENERAL_MESSAGE } from '../cloud-simulator/summary';
 
 const nav = [
-  { href: '#parceria', label: 'Parceria' },
+  { href: '#solucoes', label: 'Soluções' },
   { href: '#simulador', label: 'Simulador' },
-  { href: '#projetos', label: 'Projetos' },
-  { href: '#como-funciona', label: 'Como funciona' },
+  { href: '#diferenciais', label: 'Diferenciais' },
+  { href: '#implantacao', label: 'Implantação' },
   { href: '#duvidas', label: 'Dúvidas' },
 ];
 const wa = whatsappUrl(GENERAL_MESSAGE);
@@ -28,11 +28,11 @@ const wa = whatsappUrl(GENERAL_MESSAGE);
     <div class="header-actions">
       <a class="btn btn--outline btn--sm header-wa" href={wa} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="header">
         <Icon name="whatsapp" class="wa-icon" size={18} />
-        <span>Falar sobre parceria</span>
+        <span>Falar com especialista</span>
       </a>
       <a class="btn btn--primary btn--sm header-cta" href="#configurar" data-sim-start data-track="cta_click" data-track-location="header">
-        <span class="cta-long">Organizar um projeto</span>
-        <span class="cta-short" aria-hidden="true">Briefing</span>
+        <span class="cta-long">Avaliar meu ambiente</span>
+        <span class="cta-short" aria-hidden="true">Avaliar</span>
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-movel" aria-label="Abrir menu" data-menu-toggle>
         <span class="menu-toggle-bars" aria-hidden="true"></span>
@@ -48,7 +48,7 @@ const wa = whatsappUrl(GENERAL_MESSAGE);
         ))}
       </ul>
       <div class="mobile-menu-actions">
-        <a class="btn btn--primary btn--lg" href="#configurar" data-sim-start data-track="cta_click" data-track-location="menu">Organizar um projeto</a>
+        <a class="btn btn--primary btn--lg" href="#configurar" data-sim-start data-track="cta_click" data-track-location="menu">Avaliar minha infraestrutura</a>
         <a class="btn btn--outline btn--lg" href={wa} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="menu">
           <Icon name="whatsapp" class="wa-icon" size={18} /> WhatsApp {CONTACT.whatsappDisplay}
         </a>

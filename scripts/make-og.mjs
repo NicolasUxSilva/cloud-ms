@@ -23,7 +23,7 @@ const page = `<!doctype html><html><head><meta charset="utf-8"><style>
 body{width:1200px;height:630px;background:#f5f4f0;font-family:Inter;color:#1b1820;display:grid;grid-template-columns:600px 1fr;overflow:hidden}
 .l{padding:64px 40px 56px 72px;display:flex;flex-direction:column}
 .logo{width:190px}
-h1{margin-top:auto;font-family:Sora;font-weight:600;font-size:52px;line-height:1.04;letter-spacing:-.035em}
+h1{margin-top:auto;font-family:Sora;font-weight:600;font-size:48px;line-height:1.04;letter-spacing:-.035em}
 .hl{background:linear-gradient(transparent 68%,rgba(249,131,5,.32) 68%,rgba(249,131,5,.32) 92%,transparent 92%)}
 p{margin-top:24px;font-size:22px;color:#4e4955;line-height:1.45}
 .r{margin:40px 40px 40px 0;border-radius:28px;background:radial-gradient(120% 80% at 100% 0%,rgba(61,58,134,.55),transparent 55%),radial-gradient(80% 60% at 0% 100%,rgba(249,131,5,.14),transparent 60%),#0e0d22;padding:40px 36px;display:flex;flex-direction:column;justify-content:center;color:#f4f3f8}
@@ -32,8 +32,8 @@ p{margin-top:24px;font-size:22px;color:#4e4955;line-height:1.45}
 .chips{display:flex;gap:10px;flex-wrap:wrap}
 .chips span{font-family:Mono;font-size:15px;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:8px 12px;color:#f4f3f8}
 </style></head><body>
-<div class="l"><img class="logo" src="${logo}" alt=""><h1>Você cuida do cliente. <span class="hl">A gente entra com a nuvem.</span></h1><p>Cloud em parceria para profissionais de TI que atendem empresas</p></div>
-<div class="r"><span class="k">Briefing de projeto</span>${svg}<div class="chips"><span>Demanda</span><span>Modelo</span><span>Recursos</span><span>Rede</span></div></div>
+<div class="l"><img class="logo" src="${logo}" alt=""><h1>Você cuida da TI.<br>A gente entra com<br><span class="hl">a infraestrutura Cloud.</span></h1><p>Nuvem privada sob medida, migração, monitoramento e suporte</p></div>
+<div class="r"><span class="k">Levantamento de infraestrutura</span>${svg}<div class="chips"><span>Necessidade</span><span>Modelo</span><span>Recursos</span><span>Rede</span></div></div>
 </body></html>`;
 
 const browser = await chromium.launch();

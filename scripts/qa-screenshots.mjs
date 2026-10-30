@@ -6,7 +6,7 @@ import { chromium } from '@playwright/test';
 
 const url = process.argv[2] ?? 'http://localhost:4500/';
 const widths = (process.argv[3] ?? '360,390,768,1024,1440,1920').split(',').map(Number);
-const sections = ['.site-header', '#inicio', '.clients', '#situacoes', '#parceria', '#simulador', '#projetos', '#diferenciais', '#como-funciona', '#equipe', '#duvidas', '.final', '.footer'];
+const sections = ['.site-header', '#inicio', '.clients', '#desafios', '#apoio', '#solucoes', '#simulador', '#diferenciais', '#implantacao', '#equipe', '#duvidas', '.final', '.footer'];
 const outDir = fileURLToPath(new URL('../reports/screenshots/', import.meta.url));
 await mkdir(outDir, { recursive: true });
 

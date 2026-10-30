@@ -1,21 +1,21 @@
 ---
 import Icon from './Icon.astro';
-import { CLIENT_ARGUMENTS, PROJECTS } from '../data/content';
+import { MANAGEMENT_ARGUMENTS, SOLUTIONS } from '../data/content';
 ---
 
-<section class="section section--tint" id="projetos" aria-labelledby="proj-title">
+<section class="section section--tint" id="solucoes" aria-labelledby="proj-title">
   <div class="container">
     <div class="section-head section-head--split">
       <div>
-        <p class="eyebrow"><b>04</b> Projetos</p>
-        <h2 id="proj-title">O que dá para propor ao cliente</h2>
+        <p class="eyebrow"><b>03</b> Soluções</p>
+        <h2 id="proj-title">Qual estrutura atende melhor à sua operação?</h2>
       </div>
-      <p>Três caminhos de Cloud que a MSSERVER entrega, cada um com o seu cenário típico. Na dúvida entre eles, o simulador tem a opção de orientação.</p>
+      <p>Três modelos de infraestrutura Cloud da MSSERVER, cada um com o seu cenário típico. Se ainda não estiver claro, o simulador tem a opção de orientação.</p>
     </div>
 
     <ul class="sol-grid">
       {
-        PROJECTS.map((s, i) => (
+        SOLUTIONS.map((s, i) => (
           <li class:list={['sol-card', i === 0 && 'sol-card--lead on-dark']} data-reveal style={`--reveal-i:${i}`}>
             <div class="sol-head">
               <span class="icon-tile">
@@ -26,7 +26,7 @@ import { CLIENT_ARGUMENTS, PROJECTS } from '../data/content';
             <h3>{s.title}</h3>
             <p>{s.text}</p>
             <p class="sol-when">
-              <span>Quando indicar</span>
+              <span>Quando faz sentido</span>
               {s.when}
             </p>
             <ul class="sol-points">
@@ -38,8 +38,8 @@ import { CLIENT_ARGUMENTS, PROJECTS } from '../data/content';
               ))}
             </ul>
             <div class="sol-actions">
-              <a class:list={['btn', i === 0 ? 'btn--primary' : 'btn--outline']} href="#configurar" data-sim-preset={`model:${s.model}`} data-track="cta_click" data-track-location={`projeto-${s.model}`}>
-                Montar briefing com este modelo
+              <a class:list={['btn', i === 0 ? 'btn--primary' : 'btn--outline']} href="#configurar" data-sim-preset={`model:${s.model}`} data-track="cta_click" data-track-location={`solucao-${s.model}`}>
+                Avaliar com este modelo
                 <Icon name="arrow-right" class="btn-arrow" />
               </a>
               {s.href && (
@@ -54,10 +54,10 @@ import { CLIENT_ARGUMENTS, PROJECTS } from '../data/content';
     </ul>
 
     <div class="args" data-reveal>
-      <h3 class="args-title">Para a conversa com o cliente</h3>
+      <h3 class="args-title">Para levar à gestão da empresa</h3>
       <ul class="args-grid">
         {
-          CLIENT_ARGUMENTS.map((a) => (
+          MANAGEMENT_ARGUMENTS.map((a) => (
             <li>
               <Icon name={a.icon} size={20} />
               <span>
@@ -171,8 +171,8 @@ import { CLIENT_ARGUMENTS, PROJECTS } from '../data/content';
 
   .sol-actions {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 0.75rem 1.25rem;
     margin-top: auto;
     padding-top: 1rem;

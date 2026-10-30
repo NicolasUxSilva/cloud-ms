@@ -1,23 +1,23 @@
 ---
 import Icon from './Icon.astro';
-import { SITUATIONS, situationPreset } from '../data/content';
+import { CHALLENGES, challengePreset } from '../data/content';
 ---
 
-<section class="section" id="situacoes" aria-labelledby="sit-title">
+<section class="section" id="desafios" aria-labelledby="sit-title">
   <div class="container">
     <div class="section-head section-head--split">
       <div>
-        <p class="eyebrow"><b>01</b> Situações</p>
-        <h2 id="sit-title">Se você atende empresas, já viu alguma dessas</h2>
+        <p class="eyebrow"><b>01</b> Desafios</p>
+        <h2 id="sit-title">Quando a infraestrutura começa a limitar a operação</h2>
       </div>
       <p>
-        Demanda de Cloud costuma aparecer no meio do suporte, numa visita ou numa reclamação do cliente. Cada uma destas pode virar um projeto. Escolha uma para abrir o simulador com o contexto já marcado.
+        O servidor está no limite? O ERP ficou lento? A equipe precisa acessar os sistemas de qualquer lugar? Escolha a situação mais próxima da sua para abrir o simulador com o contexto já marcado.
       </p>
     </div>
 
     <ul class="apps-grid">
       {
-        SITUATIONS.map((sit, i) => (
+        CHALLENGES.map((sit, i) => (
           <li class="app-card" data-reveal style={`--reveal-i:${i % 3}`}>
             <div class="app-head">
               <div class="icon-tile">
@@ -27,13 +27,13 @@ import { SITUATIONS, situationPreset } from '../data/content';
             </div>
             <p>{sit.text}</p>
             <div class="app-priorities">
-              <span class="app-priorities-label">Costuma entrar no projeto</span>
+              <span class="app-priorities-label">Costuma entrar na solução</span>
               <ul>
                 {sit.fits.map((p) => <li class="chip">{p}</li>)}
               </ul>
             </div>
-            <a class="app-link" href="#configurar" data-sim-preset={situationPreset(sit)} data-track="cta_click" data-track-location={`situacao-${sit.id}`}>
-              Organizar este projeto
+            <a class="app-link" href="#configurar" data-sim-preset={challengePreset(sit)} data-track="cta_click" data-track-location={`desafio-${sit.id}`}>
+              Avaliar este cenário
               <Icon name="arrow-right" size={18} class="btn-arrow" />
             </a>
           </li>
@@ -46,10 +46,10 @@ import { SITUATIONS, situationPreset } from '../data/content';
         <Icon name="circle-help" />
       </div>
       <div class="help-copy">
-        <h3>Ainda no começo do levantamento?</h3>
-        <p>Não precisa ter todos os números. O simulador aceita "não sei" em cada etapa, e a equipe da MSSERVER completa o dimensionamento com você.</p>
+        <h3>Ainda não tem todos os números?</h3>
+        <p>Tudo bem. O simulador aceita "não sei" em cada etapa, e a equipe da MSSERVER completa o dimensionamento com você.</p>
       </div>
-      <a class="btn btn--primary" href="#configurar" data-sim-preset="workload:unsure" data-track="cta_click" data-track-location="situacao-nao-sei">
+      <a class="btn btn--primary" href="#configurar" data-sim-preset="workload:unsure" data-track="cta_click" data-track-location="desafio-nao-sei">
         Começar sem todos os dados
         <Icon name="arrow-right" class="btn-arrow" />
       </a>
