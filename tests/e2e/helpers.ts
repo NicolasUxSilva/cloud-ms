@@ -12,9 +12,9 @@ export const sim = (page: Page) => page.locator('[data-simulator]');
 
 export async function openSimulator(page: Page) {
   await gotoLanding(page);
-  await page.getByRole('link', { name: 'Organizar um projeto' }).first().click();
+  await page.getByRole('link', { name: 'Avaliar meu ambiente' }).first().click();
   await expect(sim(page)).toHaveClass(/is-ready/);
-  await expect(sim(page).locator('.sim-step-title')).toHaveText('O que o cliente precisa levar para a nuvem?');
+  await expect(sim(page).locator('.sim-step-title')).toHaveText('O que a sua infraestrutura precisa atender?');
 }
 
 /** Marca uma opção pelo título visível (os inputs ficam sob o cartão). */
@@ -34,8 +34,8 @@ export async function next(page: Page, title?: string) {
 export async function completeCloud(page: Page) {
   await choose(page, 'Sistemas de gestão e ERP');
   await choose(page, 'Banco de dados');
-  await choose(page, 'Migrar um servidor local');
-  await next(page, 'Qual modelo de Cloud atende esse cliente?');
+  await choose(page, 'Migrar o servidor local');
+  await next(page, 'Qual modelo de Cloud atende melhor à operação?');
   await choose(page, 'Nuvem privada');
   await choose(page, 'Crítico');
   await next(page, 'Quanto processamento o ambiente precisa?');
@@ -47,5 +47,5 @@ export async function completeCloud(page: Page) {
   await next(page, 'Rede, proteção e serviços');
   await choose(page, /^2$/);
   await choose(page, 'Backup diário');
-  await next(page, 'Revise o briefing e envie para a equipe');
+  await next(page, 'Revise o levantamento e envie para a equipe');
 }

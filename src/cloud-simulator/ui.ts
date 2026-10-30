@@ -22,11 +22,11 @@ import { configLines, plainSummary, servicesText, summarize, type SummaryRow, wh
 import type { Notice, Option, SimState, Workload } from './types';
 import { emptyState, NOTES_MAX, OTHER, UNSURE } from './types';
 
-export const STORAGE_KEY = 'msserver-cloud-simulador-v2';
+export const STORAGE_KEY = 'msserver-cloud-simulador-v3';
 /** Evento disparado no documento a cada mudança; a página usa para os CTAs de WhatsApp. */
 export const CHANGE_EVENT = 'cloudsim:change';
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-const RESTART_CONFIRM = 'Recomeçar? O briefing atual será apagado.';
+const RESTART_CONFIRM = 'Recomeçar? O levantamento atual será apagado.';
 
 // ——— Pequeno utilitário de DOM ———
 
@@ -117,7 +117,7 @@ export function initSimulator(root: HTMLElement) {
   let state: SimState = saved?.state ?? emptyState();
   let current = saved ? Math.min(saved.step, firstIncompleteStep(saved.state)) : 0;
   let maxStep = saved ? Math.max(current, Math.min(saved.maxStep, firstIncompleteStep(saved.state))) : 0;
-  let pendingNotices: Notice[] = saved && (saved.state.workloads.length > 0 || saved.step > 0) ? [{ tone: 'info', text: 'Retomamos o briefing de onde você parou.' }] : [];
+  let pendingNotices: Notice[] = saved && (saved.state.workloads.length > 0 || saved.step > 0) ? [{ tone: 'info', text: 'Retomamos o levantamento de onde você parou.' }] : [];
   let started = !!saved;
 
   const step = () => STEPS[current];
@@ -426,7 +426,7 @@ export function initSimulator(root: HTMLElement) {
     const other = h(
       'div',
       { class: 'sim-field sim-other', 'data-show-when': 'workloads=other' },
-      h('label', { for: otherId }, 'Descreva a outra demanda'),
+      h('label', { for: otherId }, 'Descreva a outra necessidade'),
       h('input', {
         id: otherId,
         type: 'text',
@@ -439,7 +439,7 @@ export function initSimulator(root: HTMLElement) {
       }),
     );
     return [
-      h('div', { class: 'sim-stack' }, buildChoice('workloads', 'Cargas de trabalho do cliente', WORKLOADS, 'cards', { multiple: true, required: true }), other),
+      h('div', { class: 'sim-stack' }, buildChoice('workloads', 'Sistemas e cargas de trabalho', WORKLOADS, 'cards', { multiple: true, required: true }), other),
       buildChoice('scenario', 'Momento do projeto', SCENARIOS, 'cards', { showLegend: true, required: true }),
     ];
   }
@@ -447,7 +447,7 @@ export function initSimulator(root: HTMLElement) {
   // ——— Resumo final ———
 
   function buildReview() {
-    const review = h('div', { class: 'sim-review' }, h('p', { class: 'sim-review-title' }, 'Briefing preliminar'));
+    const review = h('div', { class: 'sim-review' }, h('p', { class: 'sim-review-title' }, 'Levantamento preliminar'));
     const list = h('dl', { class: 'sim-review-list' });
     const rows: SummaryRow[] = [...summarize(state), { step: 'rede', label: 'Itens para avaliar', value: servicesText(state), status: 'set' }];
     for (const row of rows) {
@@ -469,7 +469,7 @@ export function initSimulator(root: HTMLElement) {
     review.append(list);
 
     const status = h('div', { class: 'sim-submit-status', 'data-submit-status': true, 'aria-live': 'polite' });
-    const copyBtn = h('button', { type: 'button', class: 'btn btn--outline btn--lg', 'data-copy-summary': true }, icon('copy', 18), 'Copiar briefing');
+    const copyBtn = h('button', { type: 'button', class: 'btn btn--outline btn--lg', 'data-copy-summary': true }, icon('copy', 18), 'Copiar resumo');
     copyBtn.addEventListener('click', async () => {
       let ok = false;
       try {
@@ -481,8 +481,8 @@ export function initSimulator(root: HTMLElement) {
       track('simulation_summary_copy', { ok });
       status.replaceChildren(
         ok
-          ? h('p', { class: 'sim-notice sim-notice--info' }, icon('check', 18), h('span', {}, 'Briefing copiado. Use na conversa com o cliente ou cole em um e-mail para a equipe comercial.'))
-          : h('p', { class: 'sim-notice sim-notice--warning' }, icon('triangle-alert', 18), h('span', {}, 'Não foi possível copiar automaticamente. Use o WhatsApp para enviar o briefing.')),
+          ? h('p', { class: 'sim-notice sim-notice--info' }, icon('check', 18), h('span', {}, 'Resumo copiado. Compartilhe com a sua equipe ou cole em um e-mail para a equipe comercial.'))
+          : h('p', { class: 'sim-notice sim-notice--warning' }, icon('triangle-alert', 18), h('span', {}, 'Não foi possível copiar automaticamente. Use o WhatsApp para enviar o levantamento.')),
       );
     });
 
@@ -498,35 +498,35 @@ export function initSimulator(root: HTMLElement) {
           'p',
           {},
           h('strong', {}, 'Sem preço calculado. '),
-          'A MSSERVER não publica tabela de preços de Cloud. A equipe analisa o briefing, confirma a arquitetura e retorna com a proposta. Este levantamento não é uma proposta comercial nem define condições de parceria.',
+          'A MSSERVER não publica tabela de preços de Cloud. A equipe analisa o levantamento, confirma a arquitetura e retorna com a proposta. Este levantamento não é uma cotação nem uma proposta comercial.',
         ),
       ),
-      h('div', { class: 'sim-form-actions' }, waLink('Enviar briefing pelo WhatsApp', 'simulador-envio', 'btn btn--primary btn--lg'), copyBtn),
+      h('div', { class: 'sim-form-actions' }, waLink('Enviar levantamento pelo WhatsApp', 'simulador-envio', 'btn btn--primary btn--lg'), copyBtn),
       status,
-      h('p', { class: 'sim-privacy' }, 'O simulador não pede dados pessoais, seus ou do cliente. A mensagem do WhatsApp leva só o briefing; você conversa direto com a equipe. Atendimento comercial das 8h às 18h.'),
-      h('button', { type: 'button', class: 'btn btn--text sim-restart', onclick: () => confirm(RESTART_CONFIRM) && reset() }, icon('rotate-ccw', 16), 'Montar outro briefing'),
+      h('p', { class: 'sim-privacy' }, 'O simulador não pede dados pessoais. A mensagem do WhatsApp leva só o levantamento; você conversa direto com a equipe. Atendimento comercial das 8h às 18h.'),
+      h('button', { type: 'button', class: 'btn btn--text sim-restart', onclick: () => confirm(RESTART_CONFIRM) && reset() }, icon('rotate-ccw', 16), 'Fazer outro levantamento'),
     );
     return h('div', { class: 'sim-contact' }, review, send);
   }
 
-  /** Contexto opcional para a equipe: como o profissional atua e observações livres. */
+  /** Contexto opcional para a equipe: como a pessoa atua na TI e observações livres. */
   function buildContext() {
     const notesId = nextId('notes');
     const hintId = `${notesId}-h`;
-    const roles = buildChoice('role', 'Como você atua com este cliente? (opcional)', ROLES, 'cards', { showLegend: true });
+    const roles = buildChoice('role', 'Como você atua na TI da empresa? (opcional)', ROLES, 'cards', { showLegend: true });
     roles.classList.add('sim-group--roles');
     const notes = h(
       'div',
       { class: 'sim-field sim-notes' },
       h('label', { for: notesId }, 'Observações para a equipe (opcional)'),
-      h('p', { class: 'sim-hint', id: hintId }, 'Prazo, sistemas que rodam hoje, quantidade de usuários, restrições. Não inclua nomes, contatos ou senhas do cliente.'),
+      h('p', { class: 'sim-hint', id: hintId }, 'Como o ambiente está hoje, quantidade de usuários, prazo e o que ainda precisa ser avaliado. Não inclua senhas nem dados pessoais.'),
       h('textarea', {
         id: notesId,
         rows: 3,
         maxlength: NOTES_MAX,
         'aria-describedby': hintId,
         'data-text-key': 'notes',
-        placeholder: 'Ex.: 25 usuários, ERP e banco no mesmo servidor, migração até o fim do trimestre',
+        placeholder: 'Ex.: 25 usuários, ERP e banco no mesmo servidor físico, migração até o fim do trimestre',
         oninput: (e: Event) => update({ notes: (e.target as HTMLTextAreaElement).value }),
       }),
     );
@@ -543,7 +543,7 @@ export function initSimulator(root: HTMLElement) {
     a.addEventListener('click', () => {
       const status = els.stage.querySelector<HTMLElement>('[data-submit-status]');
       if (status && location === 'simulador-envio') {
-        status.replaceChildren(h('p', { class: 'sim-notice sim-notice--info' }, icon('info', 18), h('span', {}, 'Abrimos o WhatsApp com o briefing. Para concluir, envie a mensagem por lá.')));
+        status.replaceChildren(h('p', { class: 'sim-notice sim-notice--info' }, icon('info', 18), h('span', {}, 'Abrimos o WhatsApp com o levantamento. Para concluir, envie a mensagem por lá.')));
       }
     });
     return a;
@@ -601,7 +601,7 @@ export function initSimulator(root: HTMLElement) {
     els.price.replaceChildren(
       h('p', { class: 'price-kicker' }, 'Proposta'),
       h('p', { class: 'price-quote' }, 'Sob avaliação'),
-      h('p', { class: 'price-note' }, 'Sem tabela pública de preços de Cloud. A equipe da MSSERVER analisa o briefing e retorna com arquitetura e proposta.'),
+      h('p', { class: 'price-note' }, 'Sem tabela pública de preços de Cloud. A equipe da MSSERVER analisa o levantamento e retorna com arquitetura e proposta.'),
     );
 
     const actions: Node[] = [waLink(filled > 0 ? 'Falar sobre este projeto' : 'Prefere conversar? WhatsApp', 'simulador-resumo', 'btn btn--outline-dark sim-wa')];
@@ -675,12 +675,12 @@ export function initSimulator(root: HTMLElement) {
       }
       const objectiveDone = validateStep('objetivo', state) === null;
       if (model) {
-        pendingNotices.push({ tone: 'info', text: `"${model}" já está selecionado. ${objectiveDone ? 'Confira o modelo e a criticidade.' : 'Comece pela demanda do cliente.'}` });
+        pendingNotices.push({ tone: 'info', text: `"${model}" já está selecionado. ${objectiveDone ? 'Confira o modelo e a criticidade.' : 'Comece pela necessidade do ambiente.'}` });
         goTo(objectiveDone ? 1 : 0, { scroll: false });
       } else {
         pendingNotices.push({
           tone: 'info',
-          text: marked.length ? `Marcamos no briefing: ${marked.join(' · ')}. Ajuste e complete o que faltar.` : 'Tudo bem começar sem todos os dados: as etapas aceitam "não sei".',
+          text: marked.length ? `Marcamos no levantamento: ${marked.join(' · ')}. Ajuste e complete o que faltar.` : 'Tudo bem começar sem todos os dados: as etapas aceitam "não sei".',
         });
         goTo(0, { scroll: false });
       }

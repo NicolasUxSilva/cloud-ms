@@ -72,7 +72,7 @@ export function summarize(s: SimState): SummaryRow[] {
   const crit = s.criticality && s.criticality !== UNSURE ? `Ambiente ${criticalityTitle(s.criticality).toLowerCase()}` : undefined;
   const profile = s.storageProfile && s.storageProfile !== UNSURE ? `Prioridade: ${storageProfileTitle(s.storageProfile).toLowerCase()}` : undefined;
   return [
-    row('objetivo', 'Demanda', s.scenario ? workloadsText(s) : '', scenarioTitle(s.scenario) || undefined),
+    row('objetivo', 'Necessidade', s.scenario ? workloadsText(s) : '', scenarioTitle(s.scenario) || undefined),
     row('modelo', 'Modelo', s.criticality ? modelText(s) : '', crit),
     row('processamento', 'Processamento', cpu.value, cpu.detail),
     row('memoria', 'Memória', memoryText(s)),
@@ -85,7 +85,7 @@ export function summarize(s: SimState): SummaryRow[] {
 export function configLines(s: SimState): [string, string][] {
   const lines: [string, string][] = [];
   const push = (k: string, v: string) => v && lines.push([k, v]);
-  push('Demanda', workloadsText(s));
+  push('Necessidade', workloadsText(s));
   push('Momento', scenarioTitle(s.scenario));
   push('Modelo', modelText(s));
   push('Criticidade', s.criticality ? (s.criticality === UNSURE ? TBD : criticalityTitle(s.criticality)) : '');
@@ -96,19 +96,19 @@ export function configLines(s: SimState): [string, string][] {
   push('Prioridade do armazenamento', s.storageProfile ? (s.storageProfile === UNSURE ? TBD : storageProfileTitle(s.storageProfile)) : '');
   push('IPs', ipsText(s));
   if (s.services.length) push('Itens para avaliar', servicesText(s));
-  push('Minha atuação', roleTitle(s.role));
+  push('Meu papel', roleTitle(s.role));
   push('Observações', notesText(s));
   return lines;
 }
 
-/** Mensagem padrão dos CTAs de WhatsApp: deixa claro de onde veio o contato e o interesse em parceria. */
-export const GENERAL_MESSAGE = 'Olá! Sou profissional de TI, vim pela página de Cloud da MSSERVER para quem atende empresas e quero conversar sobre desenvolver projetos de Cloud em parceria.';
+/** Mensagem padrão dos CTAs de WhatsApp: deixa claro de onde veio o contato. */
+export const GENERAL_MESSAGE = 'Olá! Vim pela página de Cloud da MSSERVER e quero conversar com um especialista sobre a infraestrutura de TI da minha empresa.';
 
 /** Mensagem do FAQ. */
-export const QUESTION_MESSAGE = 'Olá! Vim pela página de Cloud da MSSERVER para profissionais de TI e tenho uma dúvida sobre trabalhar projetos de Cloud em parceria.';
+export const QUESTION_MESSAGE = 'Olá! Vim pela página de Cloud da MSSERVER e tenho uma dúvida sobre infraestrutura Cloud para a minha empresa.';
 
 /**
- * Mensagem do WhatsApp com o briefing montado. Não contém dados pessoais:
+ * Mensagem do WhatsApp com o levantamento montado. Não contém dados pessoais:
  * links wa.me podem ser registrados como URL de saída pelo analytics.
  */
 export function whatsappMessage(s: SimState, complete: boolean): string {
@@ -116,21 +116,21 @@ export function whatsappMessage(s: SimState, complete: boolean): string {
   if (lines.length === 0) return GENERAL_MESSAGE;
   return [
     complete
-      ? 'Olá! Sou profissional de TI e vim pela página de Cloud da MSSERVER. Organizei no simulador a demanda de um cliente e quero avaliar o projeto em parceria com vocês.'
-      : 'Olá! Sou profissional de TI e vim pela página de Cloud da MSSERVER. Comecei a organizar a demanda de um cliente no simulador e quero ajuda para concluir.',
+      ? 'Olá! Vim pela página de Cloud da MSSERVER. Organizei no simulador os requisitos da infraestrutura da minha empresa e gostaria de uma avaliação técnica.'
+      : 'Olá! Vim pela página de Cloud da MSSERVER. Comecei a organizar no simulador os requisitos da infraestrutura da minha empresa e quero ajuda para concluir.',
     '',
-    'Briefing preliminar:',
+    'Levantamento preliminar:',
     ...lines.map(([k, v]) => `• ${k}: ${v}`),
     '',
-    'Sei que valores, arquitetura e condições dependem da análise da equipe.',
+    'Sei que valores e arquitetura dependem da análise da equipe.',
   ].join('\n');
 }
 
-/** Texto para copiar e usar na conversa com o cliente ou em um e-mail (mesmo conteúdo, sem a saudação). */
+/** Texto para copiar e compartilhar internamente ou por e-mail (mesmo conteúdo, sem a saudação). */
 export function plainSummary(s: SimState): string {
   return [
-    'Briefing preliminar de Cloud (simulador MSSERVER)',
+    'Levantamento preliminar de infraestrutura Cloud (simulador MSSERVER)',
     ...configLines(s).map(([k, v]) => `${k}: ${v}`),
-    'Sem valores: arquitetura, proposta e condições dependem da análise da equipe MSSERVER.',
+    'Sem valores: arquitetura e proposta dependem da análise da equipe MSSERVER.',
   ].join('\n');
 }

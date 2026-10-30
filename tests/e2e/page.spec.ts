@@ -4,8 +4,8 @@ import { completeCloud, gotoLanding, openSimulator } from './helpers';
 
 test('metadados próprios de Cloud, sem canonical de outra landing', async ({ page }) => {
   await gotoLanding(page);
-  await expect(page).toHaveTitle('Cloud em Parceria para Profissionais de TI | MSSERVER');
-  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /demanda de Cloud/);
+  await expect(page).toHaveTitle('Infraestrutura Cloud para a TI da sua Empresa | MSSERVER');
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Servidor no limite/);
   // Sem URL publicada definida: sem canonical e sem indexação.
   await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
@@ -20,17 +20,18 @@ test('metadados próprios de Cloud, sem canonical de outra landing', async ({ pa
   expect(faqLd).toEqual(await page.locator('#duvidas summary h3').allTextContents());
 });
 
-test('conteúdo de Cloud para parceiros: sem hardware físico, catálogo, preços ou condições de parceria', async ({ page }) => {
+test('conteúdo de Cloud para quem cuida da TI: sem hardware físico, catálogo, preços ou revenda', async ({ page }) => {
   await gotoLanding(page);
   const text = (await page.locator('main').innerText()).replace(/\s+/g, ' ');
-  for (const banned of [/R\$\s?\d/, /Dell|PowerEdge|ProLiant|Lenovo|\bHPE?\b|\bIBM\b/, /extensão de garantia/i, /comprar servidor|Ver no catálogo/i, /Xeon/, /comissão de \d|\d+\s?% de comissão/i]) {
+  for (const banned of [/R\$\s?\d/, /Dell|PowerEdge|ProLiant|Lenovo|\bHPE?\b|\bIBM\b/, /extensão de garantia/i, /comprar servidor|Ver no catálogo/i, /Xeon/, /parceri|comiss|revend|afiliad|cliente que você atende|propor ao cliente|seu cliente/i]) {
     expect(text, String(banned)).not.toMatch(banned);
   }
   await expect(page.locator('#equipamentos, #modalidades, .cat-card')).toHaveCount(0);
   const ids = await page.$$eval('main > section[id]', (s) => s.map((x) => x.id));
-  expect(ids).toEqual(['inicio', 'situacoes', 'parceria', 'simulador', 'projetos', 'diferenciais', 'como-funciona', 'equipe', 'duvidas']);
-  await expect(page.locator('h1')).toHaveText('Você cuida do cliente. A gente entra com a nuvem.');
-  await expect(page.locator('#parceria')).toContainText('não define comissões, percentuais nem exclusividade');
+  expect(ids).toEqual(['inicio', 'desafios', 'apoio', 'solucoes', 'simulador', 'diferenciais', 'implantacao', 'equipe', 'duvidas']);
+  await expect(page.locator('h1')).toHaveText('Você cuida da TI. A gente entra com a infraestrutura Cloud.');
+  await expect(page.locator('#apoio h2')).toHaveText('Você não precisa cuidar de toda a infraestrutura sozinho');
+  await expect(page.locator('#equipe h2')).toHaveText('Especialistas de verdade do outro lado');
 });
 
 test('links internos e de WhatsApp', async ({ page }) => {
@@ -42,10 +43,12 @@ test('links internos e de WhatsApp', async ({ page }) => {
   for (const href of wa) {
     expect(href).toMatch(/^https:\/\/wa\.me\/5511985991837\?text=/);
     expect(decodeURIComponent(new URL(href).searchParams.get('text')!)).toMatch(/página de Cloud da MSSERVER/);
-    expect(decodeURIComponent(new URL(href).searchParams.get('text')!)).toMatch(/parceria/);
+    expect(decodeURIComponent(new URL(href).searchParams.get('text')!)).not.toMatch(/parceri|comiss|revend|cliente/i);
   }
-  // O CTA principal do hero leva para a conversa sobre parceria.
-  await expect(page.locator('#inicio .hero-actions a').first()).toHaveAttribute('href', /wa\.me/);
+  // O CTA principal do hero leva para a conversa com um especialista.
+  const heroCta = page.locator('#inicio .hero-actions a').first();
+  await expect(heroCta).toHaveText('Conversar com um especialista');
+  await expect(heroCta).toHaveAttribute('href', /wa\.me/);
 });
 
 test('imagens, fontes e rolagem horizontal', async ({ page, baseURL }) => {

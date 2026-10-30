@@ -2,14 +2,14 @@
 import { PROCESS, WHO_LABEL } from '../data/content';
 ---
 
-<section class="section" id="como-funciona" aria-labelledby="proc-title">
+<section class="section" id="implantacao" aria-labelledby="proc-title">
   <div class="container">
     <div class="section-head section-head--split">
       <div>
-        <p class="eyebrow"><b>06</b> Como funciona</p>
-        <h2 id="proc-title">Da demanda ao ambiente rodando</h2>
+        <p class="eyebrow"><b>06</b> Implantação</p>
+        <h2 id="proc-title">Da avaliação técnica à infraestrutura em operação</h2>
       </div>
-      <p>Um caminho possível, do primeiro sinal no cliente até o ambiente em produção. O formato de cada parceria é combinado com a equipe comercial da MSSERVER.</p>
+      <p>Um caminho típico, do primeiro contato até o ambiente rodando. Prazos e etapas de cada projeto são definidos na avaliação técnica.</p>
     </div>
 
     <ol class="proc">
@@ -17,7 +17,7 @@ import { PROCESS, WHO_LABEL } from '../data/content';
         PROCESS.map((p, i) => (
           <li class:list={['proc-item', `proc-item--${p.who}`]} data-reveal style={`--reveal-i:${i}`}>
             <span class="proc-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-            <span class="proc-who"><span class="sr-only">Quem conduz: </span>{WHO_LABEL[p.who]}</span>
+            <span class="proc-who"><span class="sr-only">Quem participa: </span>{WHO_LABEL[p.who]}</span>
             <h3>{p.title}</h3>
             <p>{p.text}</p>
           </li>

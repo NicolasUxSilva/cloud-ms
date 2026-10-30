@@ -7,9 +7,9 @@ import { GENERAL_MESSAGE } from '../cloud-simulator/summary';
 
 const wa = whatsappUrl(GENERAL_MESSAGE);
 
-// Exemplo ilustrativo de briefing, montado com opções reais do configurador de Cloud da MSSERVER.
+// Exemplo ilustrativo de levantamento, montado com opções reais do configurador de Cloud da MSSERVER.
 const specs = [
-  { k: 'Demanda', v: 'ERP + banco de dados' },
+  { k: 'Necessidade', v: 'ERP + banco de dados' },
   { k: 'Hoje', v: 'Servidor local no limite' },
   { k: 'Modelo', v: 'Nuvem privada' },
   { k: 'Recursos', v: '8 cores · 32 GB · 900 GB' },
@@ -21,22 +21,22 @@ const specs = [
   <div class="hero-grid-bg" aria-hidden="true"></div>
   <div class="container hero-inner">
     <div class="hero-copy">
-      <p class="hero-kicker"><span class="kicker-mark" aria-hidden="true"></span><span>Para profissionais de TI<span class="kicker-extra"> que atendem empresas</span></span></p>
-      <h1 id="hero-title">Você cuida do cliente. <span class="hl">A gente entra com a nuvem.</span></h1>
+      <p class="hero-kicker"><span class="kicker-mark" aria-hidden="true"></span><span>Para quem cuida da TI<span class="kicker-extra"> da empresa</span></span></p>
+      <h1 id="hero-title">Você cuida da TI. A gente entra com <span class="hl">a infraestrutura Cloud.</span></h1>
       <p class="hero-lead">
-        Apareceu uma demanda de Cloud num cliente que você atende? Leve o projeto para a MSSERVER. A gente dimensiona, hospeda e dá suporte à infraestrutura em nuvem, e você não precisa resolver tudo sozinho.
+        Servidor no limite, sistema que precisa ser acessado de qualquer lugar, operação que cresceu mais que o ambiente? A MSSERVER dimensiona, hospeda, migra e acompanha a sua infraestrutura em nuvem com você, com especialistas de suporte do outro lado.
       </p>
       <div class="hero-actions">
         <a class="btn btn--primary btn--lg" href={wa} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="hero">
           <Icon name="whatsapp" class="wa-icon" />
-          Conversar sobre parceria
+          Conversar com um especialista
         </a>
         <a class="btn btn--outline btn--lg" href="#configurar" data-sim-start data-track="cta_click" data-track-location="hero">
-          Organizar um projeto
+          Avaliar minha infraestrutura
           <Icon name="arrow-right" class="btn-arrow" />
         </a>
       </div>
-      <p class="hero-note">Já tem um cliente em vista? O simulador organiza os requisitos em um briefing, sem cadastro.</p>
+      <p class="hero-note">Prefere começar pelos números? O simulador organiza os requisitos do seu ambiente, sem cadastro.</p>
 
       <ul class="hero-proof" aria-label="O que a MSSERVER coloca no projeto">
         {
@@ -57,7 +57,7 @@ const specs = [
       <figure class="console on-dark">
         <div class="console-pattern" aria-hidden="true"></div>
         <header class="console-head">
-          <span class="console-brand">Briefing de projeto · MSSERVER</span>
+          <span class="console-brand">Levantamento de infraestrutura</span>
           <span class="console-tag">Exemplo</span>
         </header>
         <CloudIllustration class="console-server" />
@@ -75,16 +75,16 @@ const specs = [
           <p class="console-price">
             <span>Próximo passo</span>
             <strong>Avaliação técnica</strong>
-            <small>A equipe analisa o briefing com você antes da proposta</small>
+            <small>A equipe analisa o ambiente com você antes da proposta</small>
           </p>
           <a class="console-link" href="#configurar" data-sim-start data-track="cta_click" data-track-location="hero-console">
-            Montar um briefing <Icon name="arrow-right" size={18} class="btn-arrow" />
+            Montar o meu <Icon name="arrow-right" size={18} class="btn-arrow" />
           </a>
         </figcaption>
       </figure>
       <p class="hero-badge">
-        <Icon name="handshake" size={18} />
-        Você segue com o cliente; a MSSERVER entra com a estrutura
+        <Icon name="badge-check" size={18} />
+        Avaliação técnica antes de qualquer proposta
       </p>
     </div>
   </div>
@@ -157,7 +157,7 @@ const specs = [
     font-size: var(--t-hero);
     letter-spacing: -0.035em;
     line-height: 1.03;
-    max-width: 15ch;
+    max-width: 17ch;
   }
 
   .hl {
@@ -397,7 +397,7 @@ const specs = [
 
   .hero-badge :global(svg) {
     flex: none;
-    color: var(--c-orange-deep);
+    color: var(--c-success);
   }
 
   @media (max-width: 520px) {

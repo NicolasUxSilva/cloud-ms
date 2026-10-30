@@ -9,17 +9,17 @@ const wa = whatsappUrl(GENERAL_MESSAGE);
 <section class="final on-dark" aria-labelledby="final-title">
   <div class="final-bg" aria-hidden="true"></div>
   <div class="container final-inner">
-    <h2 id="final-title">Tem um projeto em mente? Vamos conversar.</h2>
-    <p data-final-lead>Conte qual é a demanda do cliente e como você atende. A equipe da MSSERVER avalia o cenário com você e combina os próximos passos.</p>
+    <h2 id="final-title">Vamos conversar sobre a infraestrutura da sua empresa?</h2>
+    <p data-final-lead>Conte como o ambiente está hoje e o que precisa mudar. A equipe da MSSERVER avalia o cenário com você e indica o caminho, antes de qualquer proposta.</p>
     <div class="final-actions">
       <a class="btn btn--primary btn--lg" href={wa} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="cta-final" data-wa-summary>
-        <Icon name="whatsapp" class="wa-icon" /> <span data-wa-summary-label>Conversar sobre parceria</span>
+        <Icon name="whatsapp" class="wa-icon" /> <span data-wa-summary-label>Conversar com um especialista</span>
       </a>
       <a class="btn btn--outline-dark btn--lg" href="#configurar" data-sim-start data-track="cta_click" data-track-location="cta-final">
-        <span data-final-sim-label>Organizar um projeto</span> <Icon name="arrow-right" class="btn-arrow" />
+        <span data-final-sim-label>Avaliar minha infraestrutura</span> <Icon name="arrow-right" class="btn-arrow" />
       </a>
     </div>
-    <p class="final-saved" data-final-saved hidden>A mensagem do WhatsApp já leva o briefing que você montou no simulador.</p>
+    <p class="final-saved" data-final-saved hidden>A mensagem do WhatsApp já leva o levantamento que você montou no simulador.</p>
     <p class="final-meta">
       <a href={`tel:${CONTACT.phoneE164}`}><Icon name="phone" size={16} /> {CONTACT.phoneDisplay}</a>
       <a href={`mailto:${CONTACT.emailCommercial}`}><Icon name="mail" size={16} /> {CONTACT.emailCommercial}</a>
@@ -45,8 +45,8 @@ const wa = whatsappUrl(GENERAL_MESSAGE);
     if (!link || !label || !simLabel || !saved) return;
     link.href = whatsappUrl(message);
     link.dataset.trackLocation = filled > 0 ? 'cta-final-simulacao' : 'cta-final';
-    label.textContent = complete ? 'Enviar o briefing' : filled > 0 ? 'Falar sobre este projeto' : 'Conversar sobre parceria';
-    simLabel.textContent = complete ? 'Revisar o briefing' : filled > 0 ? 'Concluir o briefing' : 'Organizar um projeto';
+    label.textContent = complete ? 'Enviar o levantamento' : filled > 0 ? 'Falar sobre este ambiente' : 'Conversar com um especialista';
+    simLabel.textContent = complete ? 'Revisar o levantamento' : filled > 0 ? 'Concluir o levantamento' : 'Avaliar minha infraestrutura';
     saved.hidden = filled === 0;
   }
 
@@ -97,7 +97,7 @@ const wa = whatsappUrl(GENERAL_MESSAGE);
 
   .final h2 {
     font-size: clamp(2.1rem, 1.4rem + 2.6vw, 3.6rem);
-    max-width: 16ch;
+    max-width: 20ch;
   }
 
   .final-inner > p:not(.final-meta):not(.final-saved) {

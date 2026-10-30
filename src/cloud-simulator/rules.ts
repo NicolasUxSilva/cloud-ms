@@ -29,9 +29,9 @@ export function customStorageGb(s: SimState): number | null {
 export function validateStep(id: StepId, s: SimState): string | null {
   switch (id) {
     case 'objetivo':
-      if (s.workloads.length === 0) return 'Escolha pelo menos uma carga de trabalho ou marque "Ainda não sei".';
-      if (s.workloads.includes(OTHER) && s.otherWorkload.trim().length < 3) return 'Descreva a outra demanda em poucas palavras.';
-      if (!s.scenario) return 'Diga se é uma migração, uma troca de provedor, um novo projeto ou uma ampliação.';
+      if (s.workloads.length === 0) return 'Escolha pelo menos um sistema ou carga de trabalho, ou marque "Ainda não sei".';
+      if (s.workloads.includes(OTHER) && s.otherWorkload.trim().length < 3) return 'Descreva a outra necessidade em poucas palavras.';
+      if (!s.scenario) return 'Diga se é uma migração, uma troca de provedor, um novo ambiente ou uma ampliação.';
       return null;
     case 'modelo':
       if (!s.model) return 'Escolha um modelo de Cloud ou "Quero orientação".';
@@ -103,12 +103,12 @@ export function tipsFor(id: StepId, s: SimState): string[] {
     if (has('files')) tips.push('Para arquivos, a capacidade costuma pesar mais. Considere o crescimento dos próximos meses.');
   }
   if (id === 'rede') {
-    if (s.model === 'hybrid' || s.scenario === 'migrate') tips.push('Para integrar a nuvem ao escritório do cliente, a VPN ou o link ponto a ponto mantêm o tráfego protegido.');
+    if (s.model === 'hybrid' || s.scenario === 'migrate') tips.push('Para integrar a nuvem ao escritório, a VPN ou o link ponto a ponto mantêm o tráfego protegido.');
     if (s.scenario === 'switch') tips.push('Na troca de provedor, use as observações da última etapa para contar o que roda hoje e onde: isso agiliza o planejamento da migração.');
     if (s.criticality === 'high') tips.push('Em ambientes críticos, backup diário e monitoramento ajudam a recuperar e a antecipar problemas.');
   }
   if (tips.length === 0 && (id === 'processamento' || id === 'memoria' || id === 'armazenamento')) {
-    tips.push('Ainda sem esse número? Escolha "Não sei" ou "Quero recomendação". A equipe dimensiona a partir do uso do cliente.');
+    tips.push('Ainda sem esse número? Escolha "Não sei" ou "Quero recomendação". A equipe dimensiona a partir do uso do ambiente.');
   }
   return tips.slice(0, 2);
 }
