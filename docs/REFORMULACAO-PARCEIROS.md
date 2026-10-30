@@ -20,7 +20,7 @@ jornada de conversão.
 | 04 | Aplicações (5 usos) | Empresa cliente | Virou **Situações**: seis cenários do dia a dia de quem atende empresas |
 | 05 | Diferenciais (bento) | Empresa cliente | Mantido, com texto voltado a "o que sustenta o projeto" |
 | 06 | Contratação (4 passos) | Empresa cliente | Virou **Como funciona** (5 passos, com quem conduz cada um) |
-| 07 | Quem atende | Todos | Mantido como "Do outro lado" |
+| 07 | Quem atende | Todos | Mantido, igual à seção "Quem atende" da landing de servidores físicos (textos, números e depoimentos) |
 | 08 | FAQ | Empresa cliente | Reescrito com as dúvidas do parceiro |
 | — | CTA final | Empresa cliente | "Tem um projeto em mente? Vamos conversar." |
 
@@ -45,7 +45,7 @@ passavam antes da mudança.
 | 04 | Projetos | `projetos` | Os três modelos como propostas possíveis + argumentos para o cliente |
 | 05 | Diferenciais | `diferenciais` | A retaguarda técnica que sustenta o projeto |
 | 06 | Como funciona | `como-funciona` | Da demanda ao ambiente rodando, com "Você", "Você + MSSERVER" ou "MSSERVER" em cada passo |
-| 07 | Do outro lado | `equipe` | Equipe e números |
+| 07 | Quem atende | `equipe` | Equipe, números (+15 anos, +10.250 projetos) e depoimentos de clientes |
 | 08 | Dúvidas | `duvidas` | Parceria, simulador, modelos, migração, segurança, backup, disponibilidade |
 | — | CTA final | — | Conversa sobre parceria; leva o briefing quando existe |
 
@@ -123,7 +123,7 @@ As opções técnicas (2 a 22 cores, 8 a 64 GB, 300 GB a 2 TB, 1 a 6 IPs) contin
   retornam 404).
 - Condições comerciais (comissão, desconto, faturamento, quem contrata, exclusividade).
 - Suporte 24/7 (ver acima) e o 99,9% como SLA contratual.
-- "+15 anos no mercado" (citado em `/cases-de-sucesso/`, não em `/sobre/`).
+- "+15 anos no mercado" (citado em `/cases-de-sucesso/`, não em `/sobre/`) e "+10.250 projetos entregues" (informado pela MSSERVER em 28/10/2026; o site publica "+250").
 - Sistemas operacionais, hipervisores e tecnologia de disco oferecidos (não constam no
   site; por isso não viraram opção do simulador).
 

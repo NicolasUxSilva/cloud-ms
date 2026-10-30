@@ -223,8 +223,24 @@ export const DIFFERENTIATORS = {
 export const STATS = [
   // /cases-de-sucesso/ ("+15 Anos no Mercado")
   { value: '+15', label: 'anos no mercado' },
-  // NP ("à disposição 24/7, por telefone e portal de atendimento")
-  { value: '24/7', label: 'suporte especializado' },
+  // Informado pela MSSERVER em 28/10/2026 (mesmo indicador da landing de servidores físicos).
+  { value: '+10.250', label: 'projetos entregues' },
+];
+
+// Fonte: depoimentos publicados em /sobre/ (pequenas correções de digitação).
+export const TESTIMONIALS = [
+  {
+    quote:
+      'Sempre que precisamos, adquirimos os equipamentos com a MSServer. Temos um excelente atendimento, nos é ofertado nada mais do que precisamos, gerando economia para a nossa empresa, sem contar o pós-venda mais ágil que o das próprias fabricantes.',
+    name: 'Fernando',
+    company: 'Perfilados Nardi',
+  },
+  {
+    quote:
+      'A MSServer fez o serviço de implantação de servidores. O que surpreendeu foi a agilidade em realizar essa implantação, que facilitou muito a nossa rotina, além de garantir a alta disponibilidade da nossa operação.',
+    name: 'Sara',
+    company: 'RD Concretos',
+  },
 ];
 
 /**
