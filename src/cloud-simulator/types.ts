@@ -1,6 +1,7 @@
 // Modelo de dados do simulador de Cloud: um levantamento preliminar de requisitos que
-// o profissional de TI monta para um cliente. Independente do simulador de servidores
-// dedicados (repositório landing-ms): nada aqui depende de catálogo ou preço.
+// o responsável pela TI monta para o ambiente da própria empresa. Independente do
+// simulador de servidores dedicados (repositório landing-ms): nada aqui depende de
+// catálogo ou preço.
 
 export type Workload = 'erp' | 'database' | 'web' | 'files' | 'email' | 'other' | 'unsure';
 export type Scenario = 'migrate' | 'switch' | 'new' | 'expand';
@@ -8,8 +9,8 @@ export type CloudModel = 'private' | 'dedicated' | 'hybrid' | 'unsure';
 export type Criticality = 'high' | 'standard' | 'unsure';
 export type StorageProfile = 'performance' | 'capacity' | 'unsure';
 export type StorageUnit = 'GB' | 'TB';
-/** Como o profissional que preenche o simulador se relaciona com o cliente. */
-export type PartnerRole = 'support' | 'consultant' | 'internal';
+/** Como quem preenche o simulador atua na TI da empresa (interno ou contratado). */
+export type ItRole = 'internal' | 'outsourced' | 'manager';
 
 export const UNSURE = 'unsure';
 export const OTHER = 'other';
@@ -36,7 +37,7 @@ export interface SimState {
   ips: string | null;
   services: string[];
   /** Opcional, na etapa de envio. */
-  role: PartnerRole | null;
+  role: ItRole | null;
   /** Observações livres para a equipe (opcional, sem dados pessoais). */
   notes: string;
 }
