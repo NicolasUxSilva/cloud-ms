@@ -1,13 +1,14 @@
-# Landing de Cloud da MSSERVER para profissionais de TI
+# Landing de Cloud da MSSERVER para quem cuida da TI
 
-Landing page de Cloud da MSSERVER voltada a quem atende empresas: técnicos, analistas de
-infraestrutura e redes, consultores e integradores. A página apresenta a MSSERVER como
-parceira de infraestrutura e tem um simulador em que o profissional organiza a demanda de
-um cliente num briefing preliminar, enviado à equipe pelo WhatsApp ou copiado.
+Landing page de Cloud da MSSERVER voltada ao responsável pela infraestrutura de TI de uma
+empresa (equipe interna ou contratada): coordenadores, analistas de infraestrutura,
+administradores de sistemas e profissionais de redes. A página tem um simulador em que a
+pessoa organiza os requisitos do próprio ambiente num levantamento preliminar, enviado à
+equipe pelo WhatsApp ou copiado.
 
-A reformulação para esse público (auditoria, nova arquitetura, classificação das
-informações e o que a página não promete) está em
-[docs/REFORMULACAO-PARCEIROS.md](docs/REFORMULACAO-PARCEIROS.md).
+A reformulação para esse público (auditoria, referências de parceria removidas, nova
+arquitetura, classificação das informações e o que a página não promete) está em
+[docs/REFORMULACAO-RESPONSAVEL-TI.md](docs/REFORMULACAO-RESPONSAVEL-TI.md).
 
 - Astro 7, TypeScript, CSS próprio (sem framework de UI) e build estático.
 - Mesma identidade visual da landing completa de servidores dedicados: tokens,
@@ -87,25 +88,25 @@ Roda o `astro check` e gera `dist/`.
 
 | Etapa | Campos | Origem |
 | --- | --- | --- |
-| Demanda | Cargas de trabalho do cliente (ERP, banco de dados, aplicações, arquivos, e-mail, outro, não sei) e momento (migrar servidor local, trocar de provedor, novo, ampliar) | Páginas de Cloud e servidores dedicados |
+| Necessidade | Sistemas e cargas de trabalho (ERP, banco de dados, aplicações, arquivos, e-mail, outro, não sei) e momento (migrar o servidor local, trocar de provedor, novo ambiente, ampliar o ambiente) | Páginas de Cloud e servidores dedicados |
 | Modelo | Nuvem privada, servidor dedicado em data center, híbrida/multicloud, orientação; criticidade | Soluções Cloud e Nuvem Privada |
 | Processador | 2 a 22 cores (4 a 44 threads), ou recomendação | Configurador oficial ("Processador") |
 | Memória | 8, 16, 32, 48 ou 64 GB, outro (GB) ou não sei | Configurador oficial ("Memória") |
 | Disco | 300 GB a 2 TB, outro (GB/TB) ou não sei; prioridade (opcional) | Configurador oficial ("Armazenamento") |
 | Rede | 1 a 6 IPs; itens opcionais: backup diário, VPN, ponto a ponto, firewall, VLAN, migração, monitoramento | Configurador oficial ("IP") e páginas oficiais |
-| Briefing | Revisão; atuação do profissional e observações (opcionais); envio pelo WhatsApp; copiar briefing | |
+| Resumo | Revisão; papel na TI da empresa e observações (opcionais); envio pelo WhatsApp; copiar resumo | |
 
 - **Não há preço.** A MSSERVER não publica tabela de preços de Cloud. O simulador
   gera uma configuração preliminar e informa que valores e arquitetura dependem da
   análise da equipe. Nenhum preço do simulador de servidores dedicados é reaproveitado.
 - **Contato pelo WhatsApp** (número oficial 5511985991837):
-  - a mensagem identifica a origem (página de Cloud para profissionais de TI) e o
-    interesse em parceria, e traz só as escolhas feitas, sem dados pessoais;
-  - as observações livres pedem para não incluir nomes, contatos ou senhas do cliente;
+  - a mensagem identifica a origem (página de Cloud da MSSERVER) e o pedido de
+    avaliação técnica, e traz só as escolhas feitas, sem dados pessoais;
+  - as observações livres pedem para não incluir senhas nem dados pessoais;
   - o simulador não tem formulário porque não há endpoint de Cloud disponível fora do
     WordPress.
 - **Persistência:**
-  - a configuração fica em `sessionStorage` (`msserver-cloud-simulador-v2`) e só nele;
+  - a configuração fica em `sessionStorage` (`msserver-cloud-simulador-v3`) e só nele;
   - o CTA final usa a configuração salva para preparar a mensagem.
 - **Código:** `src/cloud-simulator/` (tipos, opções, regras, resumo e interface) e
   `src/data/cloud.ts` (opções oficiais). Esse código é independente do simulador de
@@ -114,13 +115,13 @@ Roda o `astro check` e gera `dist/`.
 ## Rastreamento
 
 Eventos enviados ao `dataLayer`:
-- `cta_click` (`location`: `header`, `menu`, `hero`, `hero-console`, `situacao-*`,
-  `projeto-*`, `cta-final`);
+- `cta_click` (`location`: `header`, `menu`, `hero`, `hero-console`, `desafio-*`,
+  `solucao-*`, `cta-final`);
 - `simulation_start` (`entry`);
 - `simulation_step_complete` (`step_id`, `step_number`);
 - `simulation_complete` (`cloud_model`);
 - `simulation_summary_copy` (`ok`);
-- `contact_whatsapp_click` (`location`: `header`, `menu`, `hero`, `parceria`, `faq`,
+- `contact_whatsapp_click` (`location`: `header`, `menu`, `hero`, `apoio`, `faq`,
   `cta-final`, `cta-final-simulacao`, `flutuante`, `simulador-resumo`, `simulador-envio`).
 
 `contact_whatsapp_click` registra o **clique**, não uma conversa iniciada nem uma

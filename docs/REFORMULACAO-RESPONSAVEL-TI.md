@@ -1,144 +1,127 @@
-# Reformulação: Cloud para profissionais de TI parceiros
+# Reformulação: Cloud para quem cuida da infraestrutura de TI
 
-Revisão de 30/10/2026. A landing deixou de falar com a empresa que contrata Cloud e
-passou a falar com quem atende empresas: técnicos, analistas de infraestrutura e redes,
-consultores, integradores e prestadores de suporte. A MSSERVER aparece como parceira de
-infraestrutura para quando esses profissionais encontram uma demanda de Cloud num cliente.
+Revisão de 30/10/2026. Esta versão **substitui** a anterior, voltada a técnicos que levavam
+projetos de clientes à MSSERVER (merge `7993b83`, publicada em `cloud-ms-beige.vercel.app`).
 
-O sistema visual não mudou. Mudaram a narrativa, a ordem das seções, a linguagem e a
+O público agora é o responsável pela infraestrutura de TI da própria empresa:
+coordenador ou gerente de TI, analista de infraestrutura, administrador de sistemas,
+técnico responsável pela operação, profissional de redes ou TI contratada que administra
+o ambiente. A página não é para revendedores, afiliados, representantes nem integradores
+em busca de comissão.
+
+Mensagem central: **"Você cuida da TI. A gente entra com a infraestrutura Cloud."**
+
+O sistema visual não mudou. Mudaram a perspectiva, a copy, a ordem das seções e a
 jornada de conversão.
 
 ## Auditoria da versão anterior
 
-| # | Seção anterior | Para quem falava | Decisão |
-| --- | --- | --- | --- |
-| — | Hero "Cloud sob medida, sem altos investimentos iniciais" | Empresa cliente | Reescrito para o profissional; CTA principal vira conversa sobre parceria |
-| — | Logos de clientes | Todos | Mantido (credibilidade) |
-| 01 | Benefícios (6 cartões) | Leigo em Cloud | Removido como seção. Quatro argumentos viraram "Para a conversa com o cliente", dentro de Projetos |
-| 02 | Soluções (3 modelos) | Empresa cliente | Virou **Projetos**: "o que dá para propor", com "Quando indicar" em cada modelo |
-| 03 | Simulador | Empresa cliente | Mantido e reenquadrado como **briefing de projeto** do cliente |
-| 04 | Aplicações (5 usos) | Empresa cliente | Virou **Situações**: seis cenários do dia a dia de quem atende empresas |
-| 05 | Diferenciais (bento) | Empresa cliente | Mantido, com texto voltado a "o que sustenta o projeto" |
-| 06 | Contratação (4 passos) | Empresa cliente | Virou **Como funciona** (5 passos, com quem conduz cada um) |
-| 07 | Quem atende | Todos | Mantido, igual à seção "Quem atende" da landing de servidores físicos (textos, números e depoimentos) |
-| 08 | FAQ | Empresa cliente | Reescrito com as dúvidas do parceiro |
-| — | CTA final | Empresa cliente | "Tem um projeto em mente? Vamos conversar." |
+- O preview publicado era idêntico à `main` (`7993b83`).
+- Cerca de 80 referências ao modelo de parceria ou revenda em 16 arquivos: hero, header,
+  situações, seção "A parceria", projetos, processo, FAQ, CTA final, rodapé, SEO, imagem
+  de compartilhamento e todos os textos e mensagens do simulador.
+- Funcionalidades corretas e preservadas: simulador de 7 etapas, resumo lateral e folha
+  no celular, persistência, validações, "Outro"/"Não sei", dicas, atalhos com contexto,
+  copiar resumo, envio pelo WhatsApp, CTA final que herda a mensagem, eventos de
+  analytics, SEO sem canonical por padrão, testes unitários, E2E e de acessibilidade.
 
-O que já funcionava bem e foi preservado sem mudança de comportamento: header com menu
-móvel, entradas `data-reveal`, botão flutuante de WhatsApp, simulador (etapas, barra de
-progresso, resumo lateral, folha no celular, persistência, validações, "Outro" e "Não
-sei", dicas, eventos), CTA final que herda a mensagem do simulador, SEO sem canonical por
-padrão, testes unitários, E2E e de acessibilidade.
+## Referências ao modelo de revenda/parceria removidas
 
-Não havia problemas técnicos abertos: build, `astro check`, 17 testes unitários e os E2E
-passavam antes da mudança.
+| Antes | Agora |
+| --- | --- |
+| "Você cuida do cliente. A gente entra com a nuvem." | "Você cuida da TI. A gente entra com a infraestrutura Cloud." |
+| "Apareceu uma demanda de Cloud num cliente que você atende?" | "Servidor no limite, sistema que precisa ser acessado de qualquer lugar, operação que cresceu mais que o ambiente?" |
+| Kicker "Para profissionais de TI que atendem empresas" | "Para quem cuida da TI da empresa" |
+| "Você segue com o cliente; a MSSERVER entra com a estrutura" | "Avaliação técnica antes de qualquer proposta" |
+| "Se você atende empresas, já viu alguma dessas" | "Quando a infraestrutura começa a limitar a operação" |
+| Seção "A parceria": "Cada um entra com o que faz melhor" | Seção "Apoio": "Você não precisa cuidar de toda a infraestrutura sozinho" |
+| "E as condições comerciais?" (comissão, percentuais, exclusividade) | "Avaliação técnica antes de qualquer proposta" (sem tabela pública, sem cotação automática) |
+| "O que dá para propor ao cliente" / "Quando indicar" | "Qual estrutura atende melhor à sua operação?" / "Quando faz sentido" |
+| "Para a conversa com o cliente" | "Para levar à gestão da empresa" |
+| "Da demanda ao ambiente rodando" (quem conduz: Você, Você + MSSERVER) | "Da avaliação técnica à infraestrutura em operação" (Sua TI, Sua TI + MSSERVER) |
+| FAQ "Como funciona a parceria? Existe comissão?" e "Posso usar o briefing com o meu cliente?" | FAQ de quem avalia Cloud para o próprio ambiente (migração, dimensionamento, modelos, recursos, suporte, backup, avaliação) |
+| CTA "Conversar sobre parceria" / "Organizar um projeto" | "Conversar com um especialista" / "Avaliar minha infraestrutura" |
+| "Tem um projeto em mente? Vamos conversar." | "Vamos conversar sobre a infraestrutura da sua empresa?" |
+| Mensagem "Sou profissional de TI... quero conversar sobre desenvolver projetos de Cloud em parceria" | "Vim pela página de Cloud da MSSERVER e quero conversar com um especialista sobre a infraestrutura de TI da minha empresa" |
+| Título SEO "Cloud em Parceria para Profissionais de TI" | "Infraestrutura Cloud para a TI da sua Empresa" |
+
+A palavra "parceria" não aparece mais na página. Testes unitários e E2E impedem que
+"parceria", "comissão", "revenda", "afiliado" ou "cliente que você atende" voltem ao
+conteúdo e às mensagens.
 
 ## Nova arquitetura
 
 | # | Seção | `id` | Papel na jornada |
 | --- | --- | --- | --- |
-| — | Hero | `inicio` | "Você cuida do cliente. A gente entra com a nuvem." CTA: conversar sobre parceria (WhatsApp) e organizar um projeto (simulador) |
+| — | Hero | `inicio` | Mensagem central, suporte especializado; CTAs "Conversar com um especialista" (WhatsApp) e "Avaliar minha infraestrutura" (simulador) |
 | — | Logos | — | Prova social |
-| 01 | Situações | `situacoes` | Identificação: seis demandas reconhecíveis, cada uma abre o simulador com o contexto marcado |
-| 02 | A parceria | `parceria` | Quem faz o quê (você × MSSERVER) e transparência sobre condições comerciais |
-| 03 | Simulador | `simulador` | Organiza a demanda num briefing preliminar e envia pelo WhatsApp ou copia |
-| 04 | Projetos | `projetos` | Os três modelos como propostas possíveis + argumentos para o cliente |
-| 05 | Diferenciais | `diferenciais` | A retaguarda técnica que sustenta o projeto |
-| 06 | Como funciona | `como-funciona` | Da demanda ao ambiente rodando, com "Você", "Você + MSSERVER" ou "MSSERVER" em cada passo |
-| 07 | Quem atende | `equipe` | Equipe, números (+15 anos, +10.250 projetos) e depoimentos de clientes |
-| 08 | Dúvidas | `duvidas` | Parceria, simulador, modelos, migração, segurança, backup, disponibilidade |
-| — | CTA final | — | Conversa sobre parceria; leva o briefing quando existe |
+| 01 | Desafios | `desafios` | Seis situações do dia a dia da TI; cada uma abre o simulador com o contexto marcado |
+| 02 | Apoio | `apoio` | O que fica com a sua TI e o que a MSSERVER assume; avaliação técnica antes de proposta |
+| 03 | Soluções | `solucoes` | Nuvem privada, servidor dedicado em data center e híbrida/multicloud, com "Quando faz sentido" e argumentos para a gestão |
+| 04 | Simulador | `simulador` | "Vamos entender o que a sua infraestrutura precisa" |
+| 05 | Diferenciais | `diferenciais` | Disponibilidade, migração, monitoramento, suporte, segurança, conectividade, backup |
+| 06 | Implantação | `implantacao` | Levantamento → avaliação técnica → arquitetura e proposta → migração e implantação → operação e suporte |
+| 07 | Quem atende | `equipe` | Equipe, +15 anos, +10.250 projetos e depoimentos (mantida como pedido) |
+| 08 | Dúvidas | `duvidas` | Migração, dimensionamento, diferença entre modelos, recursos, segurança, backup, suporte, disponibilidade, preço, como pedir avaliação |
+| — | CTA final | — | "Vamos conversar sobre a infraestrutura da sua empresa?" |
 
-A estrutura não repete a landing de servidores físicos (oferta → diferenciais → catálogo →
-processo) nem a landing completa (aplicações → modalidades → simulador → catálogo).
+Os desafios cobrem: servidor local no limite, ERP com acesso remoto, banco de dados lento,
+crescimento da operação, arquivos e backup, troca de provedor. A estrutura não repete a
+landing de servidores físicos.
 
-## Jornada de conversão
+O servidor dedicado aparece como infraestrutura **hospedada em data center**, sem compra
+ou instalação de equipamento pela empresa.
 
-1. **Conversa direta:** hero, seção da parceria, header, menu, FAQ, CTA final e botão
-   flutuante abrem o WhatsApp com uma mensagem que identifica a origem (página de Cloud
-   da MSSERVER para profissionais de TI) e o interesse em parceria.
-2. **Projeto concreto:** as situações, os cartões de projeto e os CTAs "Organizar um
-   projeto" levam ao simulador, já com o contexto marcado quando vêm de um atalho.
-3. **Envio:** na última etapa o profissional informa, opcionalmente, como atua com o
-   cliente e escreve observações. O botão "Enviar briefing pelo WhatsApp" monta a
-   mensagem com a origem, o interesse em parceria, a demanda, a configuração, a atuação e
-   as observações. "Copiar briefing" gera o mesmo conteúdo, sem saudação, para usar na
-   conversa com o cliente.
-4. O CTA final e o resumo lateral passam a levar o briefing assim que há escolhas feitas.
+## Simulador
 
-## Simulador: o que mudou
-
-| Item | Antes | Agora |
+| Item | Versão de parceiros | Agora |
 | --- | --- | --- |
-| Enquadramento | "Monte uma configuração preliminar da sua Cloud" | "Organize a demanda do cliente em um briefing" |
-| Etapa 1 | "O que a sua empresa quer levar para a nuvem?" | "O que o cliente precisa levar para a nuvem?" (cargas de trabalho) |
-| Momento do projeto | Migrar, novo, ampliar | + **Trocar de provedor** (`switch`) |
-| Etapa final | Revisão e envio | + **Como você atua com este cliente?** (opcional) e **Observações para a equipe** (opcional, até 400 caracteres) |
-| Resumo lateral | "Sua configuração", "Valor" | "Briefing do projeto", "Proposta: sob avaliação", linha "Atuação" |
-| Mensagem | Pedido de orçamento da empresa | Profissional de TI, origem da página, interesse em parceria, "Briefing preliminar" |
-| Atalhos | `workload:x` ou `model:x` | Vários itens por atalho: `workload:files service:backup`, `scenario:switch`, etc., com aviso do que foi marcado |
-| Persistência | `msserver-cloud-simulador-v1` | `msserver-cloud-simulador-v2` |
+| Título da seção | "Organize a demanda do cliente em um briefing" | "Vamos entender o que a sua infraestrutura precisa" |
+| Etapa 1 | "O que o cliente precisa levar para a nuvem?" (Demanda) | "O que a sua infraestrutura precisa atender?" (Necessidade) |
+| Etapa 2 | "Qual modelo de Cloud atende esse cliente?" | "Qual modelo de Cloud atende melhor à operação?" |
+| Momento | Migrar um servidor local, trocar de provedor, novo projeto, ampliar | Migrar o servidor local, trocar de provedor, novo ambiente, ampliar o ambiente |
+| Etapa final | "Revise o briefing" + "Como você atua com este cliente?" (suporte ao cliente, consultor/integrador, TI interna) | "Revise o levantamento" + "Como você atua na TI da empresa?" (equipe interna, TI contratada, coordenação/gestão) |
+| Observações | Pedia para não incluir dados do cliente | "Como o ambiente está hoje, usuários, prazo e o que ainda precisa ser avaliado" |
+| Resumo | "Briefing do projeto", "Copiar briefing" | "Resumo do ambiente", "Copiar resumo" |
+| Mensagem | Profissional de TI, demanda de um cliente, parceria | Origem (página de Cloud), requisitos da infraestrutura da minha empresa, pedido de avaliação técnica |
+| Persistência | `msserver-cloud-simulador-v2` | `msserver-cloud-simulador-v3` |
 
-As opções técnicas (2 a 22 cores, 8 a 64 GB, 300 GB a 2 TB, 1 a 6 IPs) continuam iguais
-às do configurador oficial. Não há preço, cálculo de valor nem regra comercial nova.
+As opções técnicas continuam as do configurador oficial (2 a 22 cores, 8 a 64 GB,
+300 GB a 2 TB, 1 a 6 IPs, itens de rede, backup, migração e monitoramento). Não há preço,
+cotação nem regra comercial.
 
 ## Classificação das informações
 
-### Confirmadas (publicadas em msserver.com.br, consultadas em 28/10 e revisadas em 30/10/2026)
+### Confirmadas (msserver.com.br, consultadas em 28/10 e revisadas em 30/10/2026)
 
-- Configurador de Cloud: processador 2–22 cores (4–44 threads), memória 8–64 GB e
-  "outro", armazenamento 300 GB–2 TB e "outro", IP 1–6 (`/solucoes-cloud-msserver/`).
-- Cloud sob demanda, sem altos investimentos iniciais (`/solucoes-cloud-msserver/`).
-- Soluções: servidores dedicados, nuvem privada e SaaS (este último sem detalhe, por isso
-  fora da página).
-- Máquinas espelhadas e "99,9% de uptime" (`/solucoes-cloud-msserver/`).
-- Programa de migração com instruções de uso para toda a equipe
-  (`/solucoes-cloud-msserver/`). A página **não** descreve execução de migração, por isso
-  a landing deixou de usar "migração assistida".
-- Nuvem privada sob medida: latência de storage, topologia de rede, criticidade,
-  processadores virtuais, memória, periféricos (USB, PCI-e), segurança, virtualização
-  (`/nuvem-privada/`).
-- Segurança a nível de rede (ponto a ponto, VPN, firewall), conectividade (Akamai,
-  Cloudflare, Microsoft, Google, AWS, UPX, IX.br, múltiplas operadoras), empresa nacional,
+- Configurador de Cloud, Cloud sob demanda sem altos investimentos iniciais, máquinas
+  espelhadas com "99,9% de uptime", programa de migração com instruções de uso
+  (`/solucoes-cloud-msserver/`).
+- Nuvem privada sob medida, segurança a nível de rede, conectividade, empresa nacional,
   backup diário como serviço adicional (`/nuvem-privada/`).
+- Console/KVM, I/O, VLAN, VPN e firewall dedicado como adicionais, data center no Brasil
+  (`/servidores-dedicados/`).
+- Backup em nuvem com criptografia e redundância (`/backup-em-nuvem/`).
 - Multicloud e nuvem híbrida como serviço de consultoria
   (`/consultoria-em-implantacao-de-servidores/`).
-- Contato: WhatsApp 5511985991837, (11) 4858-5358, comercial@msserver.com.br.
+- Depoimentos de Perfilados Nardi e RD Concretos (`/sobre/`).
 
-### Antigas ou conflitantes
+### Precisam de validação
 
-- **Horário de suporte:** `/nuvem-privada/` diz "24/7, por telefone e portal"; o rodapé
-  de todas as páginas diz "8 am as 18 pm". A landing mantém a leitura já adotada antes
-  (técnico 24/7, comercial das 8h às 18h), mas **precisa de validação**.
-- **Dois configuradores:** `/nuvem-privada/` não tem a opção de 2 cores; a landing segue
-  `/solucoes-cloud-msserver/`.
-- **Catálogo de hardware** em `/nuvem-privada/` (SSD, NVMe, HDD, processadores físicos)
-  não corresponde às opções do configurador. Não foi usado.
-- Rodapé do site com "© 2023".
-
-### Precisam de validação antes de publicar
-
-- Existência e formato de um programa de parceria (não há página: `/parceiros/`,
-  `/seja-parceiro/`, `/seja-um-parceiro/`, `/revenda/` e `/programa-de-parceiros/`
-  retornam 404).
-- Condições comerciais (comissão, desconto, faturamento, quem contrata, exclusividade).
-- Suporte 24/7 (ver acima) e o 99,9% como SLA contratual.
-- "+15 anos no mercado" (citado em `/cases-de-sucesso/`, não em `/sobre/`) e "+10.250 projetos entregues" (informado pela MSSERVER em 28/10/2026; o site publica "+250").
+- **Suporte 24/7:** `/nuvem-privada/` diz "24/7, por telefone e portal"; o rodapé do site
+  diz "8 am as 18 pm". A página mantém técnico 24/7 e comercial das 8h às 18h.
+- **99,9%** como SLA contratual (o site não traz termos).
+- **+15 anos** (`/cases-de-sucesso/`) e **+10.250 projetos** (informado pela MSSERVER em
+  28/10/2026; o site publica "+250").
+- **"Programa de migração":** o site descreve instruções de uso para a equipe, não a
+  execução da migração. A página não promete migração feita pela MSSERVER; o plano é
+  "definido na avaliação técnica".
 - Sistemas operacionais, hipervisores e tecnologia de disco oferecidos (não constam no
-  site; por isso não viraram opção do simulador).
-
-### Hipóteses de posicionamento (decisão editorial, não fato)
-
-- "Você cuida do cliente. A gente entra com a nuvem." e "Você segue com o cliente; a
-  MSSERVER entra com a estrutura": direção definida no briefing da reformulação.
-- A divisão de papéis da seção "A parceria" e os passos de "Como funciona" descrevem um
-  caminho possível e dizem expressamente que o formato é combinado com a equipe
-  comercial.
-- As seis situações são cenários comuns de quem atende empresas, não casos de clientes.
+  site; não viraram opção do simulador).
+- `PUBLIC_CANONICAL_URL` ainda não definida: a página sai com `noindex`.
 
 ## O que a página não promete
 
-Comissão, percentual, remuneração, exclusividade, território, desconto, preço, SLA
-contratual, sistemas operacionais ou hipervisores específicos. A seção "A parceria" e a
-primeira pergunta do FAQ dizem isso de forma explícita. Um teste unitário garante que o
-único percentual no conteúdo é o 99,9% de uptime.
+Preço, cotação automática, SLA contratual, prazos de migração, sistemas operacionais ou
+hipervisores específicos, condições de parceria, comissão ou revenda. Um teste garante que
+o único percentual no conteúdo é o 99,9% de uptime informado.
