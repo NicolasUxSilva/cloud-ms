@@ -224,6 +224,10 @@ button {
   background: var(--c-surface);
 }
 
+.section--tint {
+  background: var(--c-paper-2);
+}
+
 .section-head {
   display: grid;
   gap: 1.25rem 3rem;

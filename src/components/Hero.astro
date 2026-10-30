@@ -7,13 +7,13 @@ import { GENERAL_MESSAGE } from '../cloud-simulator/summary';
 
 const wa = whatsappUrl(GENERAL_MESSAGE);
 
-// Exemplo ilustrativo montado com opções reais do configurador de Cloud da MSSERVER.
+// Exemplo ilustrativo de briefing, montado com opções reais do configurador de Cloud da MSSERVER.
 const specs = [
-  { k: 'Uso', v: 'ERP + banco de dados' },
+  { k: 'Demanda', v: 'ERP + banco de dados' },
+  { k: 'Hoje', v: 'Servidor local no limite' },
   { k: 'Modelo', v: 'Nuvem privada' },
   { k: 'Recursos', v: '8 cores · 32 GB · 900 GB' },
   { k: 'Rede', v: '2 IPs · VPN com o escritório' },
-  { k: 'Proteção', v: 'Backup diário' },
 ];
 ---
 
@@ -21,24 +21,24 @@ const specs = [
   <div class="hero-grid-bg" aria-hidden="true"></div>
   <div class="container hero-inner">
     <div class="hero-copy">
-      <p class="hero-kicker"><span class="kicker-mark" aria-hidden="true"></span>Cloud para empresas</p>
-      <h1 id="hero-title">Cloud sob medida, <span class="hl">sem altos investimentos</span> iniciais.</h1>
+      <p class="hero-kicker"><span class="kicker-mark" aria-hidden="true"></span><span>Para profissionais de TI<span class="kicker-extra"> que atendem empresas</span></span></p>
+      <h1 id="hero-title">Você cuida do cliente. <span class="hl">A gente entra com a nuvem.</span></h1>
       <p class="hero-lead">
-        Leve os sistemas da sua empresa para uma nuvem privada dimensionada para a sua operação, escalável e segura, com migração assistida, monitoramento e especialistas disponíveis 24/7 em português.
+        Apareceu uma demanda de Cloud num cliente que você atende? Leve o projeto para a MSSERVER. A gente dimensiona, hospeda e dá suporte à infraestrutura em nuvem, e você não precisa resolver tudo sozinho.
       </p>
       <div class="hero-actions">
-        <a class="btn btn--primary btn--lg" href="#configurar" data-sim-start data-track="cta_click" data-track-location="hero">
-          Simular minha Cloud
+        <a class="btn btn--primary btn--lg" href={wa} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="hero">
+          <Icon name="whatsapp" class="wa-icon" />
+          Conversar sobre parceria
+        </a>
+        <a class="btn btn--outline btn--lg" href="#configurar" data-sim-start data-track="cta_click" data-track-location="hero">
+          Organizar um projeto
           <Icon name="arrow-right" class="btn-arrow" />
         </a>
-        <a class="btn btn--outline btn--lg" href={wa} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="hero">
-          <Icon name="whatsapp" class="wa-icon" />
-          Falar com um especialista
-        </a>
       </div>
-      <p class="hero-note">7 etapas rápidas, sem cadastro. O resumo segue para a equipe pelo WhatsApp.</p>
+      <p class="hero-note">Já tem um cliente em vista? O simulador organiza os requisitos em um briefing, sem cadastro.</p>
 
-      <ul class="hero-proof" aria-label="Destaques">
+      <ul class="hero-proof" aria-label="O que a MSSERVER coloca no projeto">
         {
           HERO_PROOF.map((p) => (
             <li>
@@ -57,7 +57,7 @@ const specs = [
       <figure class="console on-dark">
         <div class="console-pattern" aria-hidden="true"></div>
         <header class="console-head">
-          <span class="console-brand">Simulador de Cloud MSSERVER</span>
+          <span class="console-brand">Briefing de projeto · MSSERVER</span>
           <span class="console-tag">Exemplo</span>
         </header>
         <CloudIllustration class="console-server" />
@@ -73,18 +73,18 @@ const specs = [
         </dl>
         <figcaption class="console-foot">
           <p class="console-price">
-            <span>Valor</span>
-            <strong>Sob avaliação</strong>
-            <small>Orçamento enviado pela equipe após a análise</small>
+            <span>Próximo passo</span>
+            <strong>Avaliação técnica</strong>
+            <small>A equipe analisa o briefing com você antes da proposta</small>
           </p>
           <a class="console-link" href="#configurar" data-sim-start data-track="cta_click" data-track-location="hero-console">
-            Montar a minha <Icon name="arrow-right" size={18} class="btn-arrow" />
+            Montar um briefing <Icon name="arrow-right" size={18} class="btn-arrow" />
           </a>
         </figcaption>
       </figure>
       <p class="hero-badge">
-        <Icon name="badge-check" size={18} />
-        Toda configuração é analisada pela equipe antes do orçamento
+        <Icon name="handshake" size={18} />
+        Você segue com o cliente; a MSSERVER entra com a estrutura
       </p>
     </div>
   </div>
@@ -139,6 +139,12 @@ const specs = [
     color: var(--c-ink-2);
   }
 
+  @media (max-width: 479px) {
+    .kicker-extra {
+      display: none;
+    }
+  }
+
   .kicker-mark {
     width: 9px;
     height: 9px;
@@ -151,7 +157,7 @@ const specs = [
     font-size: var(--t-hero);
     letter-spacing: -0.035em;
     line-height: 1.03;
-    max-width: 17ch;
+    max-width: 15ch;
   }
 
   .hl {
@@ -391,7 +397,7 @@ const specs = [
 
   .hero-badge :global(svg) {
     flex: none;
-    color: var(--c-success);
+    color: var(--c-orange-deep);
   }
 
   @media (max-width: 520px) {

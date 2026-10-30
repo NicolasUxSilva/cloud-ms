@@ -2,8 +2,9 @@
 import Icon from './Icon.astro';
 import { FAQ } from '../data/content';
 import { CONTACT, whatsappUrl } from '../config/site';
+import { QUESTION_MESSAGE } from '../cloud-simulator/summary';
 
-const wa = whatsappUrl('Olá! Tenho uma dúvida sobre as soluções de Cloud da MSSERVER.');
+const wa = whatsappUrl(QUESTION_MESSAGE);
 ---
 
 <section class="section" id="duvidas" aria-labelledby="faq-title">
@@ -11,7 +12,7 @@ const wa = whatsappUrl('Olá! Tenho uma dúvida sobre as soluções de Cloud da 
     <div class="faq-aside">
       <p class="eyebrow"><b>08</b> Dúvidas</p>
       <h2 id="faq-title">Perguntas frequentes</h2>
-      <p>Não encontrou a sua dúvida? Fale com a equipe comercial.</p>
+      <p>Ficou alguma dúvida sobre como trabalhar um projeto com a MSSERVER? Fale com a equipe comercial.</p>
       <div class="faq-contact">
         <a class="btn btn--outline" href={wa} target="_blank" rel="noopener" data-track="contact_whatsapp_click" data-track-location="faq">
           <Icon name="whatsapp" class="wa-icon" /> WhatsApp

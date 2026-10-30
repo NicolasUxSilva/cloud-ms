@@ -1,22 +1,23 @@
 ---
-import { PROCESS } from '../data/content';
+import { PROCESS, WHO_LABEL } from '../data/content';
 ---
 
-<section class="section" id="processo" aria-labelledby="proc-title">
+<section class="section" id="como-funciona" aria-labelledby="proc-title">
   <div class="container">
     <div class="section-head section-head--split">
       <div>
-        <p class="eyebrow"><b>06</b> Contratação</p>
-        <h2 id="proc-title">Como funciona a contratação</h2>
+        <p class="eyebrow"><b>06</b> Como funciona</p>
+        <h2 id="proc-title">Da demanda ao ambiente rodando</h2>
       </div>
-      <p>A simulação é o ponto de partida. Antes do orçamento, a equipe analisa o cenário e orienta o modelo de Cloud com você.</p>
+      <p>Um caminho possível, do primeiro sinal no cliente até o ambiente em produção. O formato de cada parceria é combinado com a equipe comercial da MSSERVER.</p>
     </div>
 
     <ol class="proc">
       {
         PROCESS.map((p, i) => (
-          <li class="proc-item" data-reveal style={`--reveal-i:${i}`}>
+          <li class:list={['proc-item', `proc-item--${p.who}`]} data-reveal style={`--reveal-i:${i}`}>
             <span class="proc-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="proc-who"><span class="sr-only">Quem conduz: </span>{WHO_LABEL[p.who]}</span>
             <h3>{p.title}</h3>
             <p>{p.text}</p>
           </li>
@@ -58,7 +59,7 @@ import { PROCESS } from '../data/content';
   }
 
   .proc-num {
-    grid-row: span 2;
+    grid-row: span 3;
     display: grid;
     place-items: center;
     width: 3.25rem;
@@ -78,9 +79,42 @@ import { PROCESS } from '../data/content';
     color: #1a0f02;
   }
 
+  .proc-item--us .proc-num {
+    background: var(--c-indigo-950);
+    border-color: var(--c-indigo-950);
+    color: var(--c-on-dark);
+  }
+
+  .proc-who {
+    justify-self: start;
+    margin-top: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--c-line-2);
+    border-radius: 6px;
+    font-family: var(--f-mono);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-ink-2);
+    background: var(--c-surface);
+  }
+
+  .proc-item--both .proc-who {
+    border-color: var(--c-orange);
+    color: var(--c-orange-text);
+    background: var(--c-orange-tint);
+  }
+
+  .proc-item--us .proc-who {
+    border-color: var(--c-indigo-950);
+    background: var(--c-indigo-950);
+    color: var(--c-on-dark);
+  }
+
   .proc-item h3 {
     font-size: 1.15rem;
-    padding-top: 0.85rem;
+    padding-top: 0.6rem;
   }
 
   .proc-item p {
@@ -92,7 +126,7 @@ import { PROCESS } from '../data/content';
 
   @media (min-width: 1024px) {
     .proc {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 1.5rem;
     }
 
@@ -112,11 +146,11 @@ import { PROCESS } from '../data/content';
 
     .proc-num {
       grid-row: auto;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
     }
 
-    .proc-item h3 {
-      padding-top: 0;
+    .proc-who {
+      margin-top: 0;
     }
   }
 </style>
